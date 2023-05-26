@@ -1,0 +1,381 @@
+<?php
+
+    ob_start();
+    session_start();
+
+    include './forms/config.php';
+
+    if (isset($_COOKIE["login"])) { //cookie -> session
+
+        $_SESSION["login"] = 2;
+        $_SESSION["username"] = $_COOKIE["username"];
+        if (isset($_COOKIE["email"])) $_SESSION["email"] = $_COOKIE["email"];
+        $_SESSION["password"] = $_COOKIE["password"];
+
+    }
+
+    if (isset($_GET["IdUser"])) {
+
+        $IdUser = $_GET["IdUser"];
+        $sql = "SELECT * FROM users WHERE IdUser = '$IdUser'";
+        $res = $conn->query($sql);
+        $row = $res->fetch_assoc();
+
+    } else header("location: ./");
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <title>Friends | <?=$row["Username"]?></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/user.css">
+        <link rel="icon" href="assets/img/favicon.png">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <script type="text/javascript" src="/jquery/jquery-3.6.0.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <div class="container bootstrap snippets bootdeys">
+            <div class="row" id="user-profile">
+                <div class="col-lg-3 col-md-4 col-sm-4">
+                    <div class="main-box clearfix">
+
+                        <h2><?=$row["Username"]?></h2>
+
+                        <div class="profile-status">
+                            <i class="fa fa-check-circle"></i>Online
+                        </div>
+
+                        <img src="<?=$row["Avatar"]?>" class="profile-img img-responsive center-block">
+
+                        <div class="profile-label">
+                            <span class="label label-danger">Admin</span>
+                        </div>
+
+                        <div class="profile-stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                            <span>Super User</span>
+                        </div>
+
+                        <div class="profile-since">
+                            Member since: <?=$row["MemDate"]?>
+                        </div>
+
+                        <br>
+
+                        <div class="profile-message-btn center-block text-center">
+                            <a href="#" class="btn btn-success">
+                                <i class="fa fa-envelope"></i> Send message <!--non se sei tu stesso -->
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-9 col-md-8 col-sm-8">
+                    <div class="main-box clearfix">
+
+                        <div class="profile-header">
+                            <h3><span>User info</span></h3>
+                            <a href="#" class="btn btn-primary edit-profile">
+                                <i class="fa fa-pencil-square fa-lg"></i> Edit profile
+                            </a>
+                        </div>
+
+                        <div class="row profile-user-info">
+                            <div class="col-sm-8">
+
+                                <div class="profile-user-details clearfix">
+                                    <div class="profile-user-details-label">
+                                        First Name
+                                    </div>
+                                    <div class="profile-user-details-value">
+                                        <?=$row["Name"]?>
+                                    </div>
+                                </div>
+
+                                <div class="profile-user-details clearfix">
+                                    <div class="profile-user-details-label">
+                                        Last Name
+                                    </div>
+                                    <div class="profile-user-details-value">
+                                        <?=$row["Surname"]?>
+                                    </div>
+                                </div>
+
+                                <div class="profile-user-details clearfix">
+                                    <div class="profile-user-details-label">
+                                        Date of Birth
+                                    </div>
+                                    <div class="profile-user-details-value">
+                                        <?=$row["BirthDate"]?>
+                                    </div>
+                                </div>
+
+                                <div class="profile-user-details clearfix">
+                                    <div class="profile-user-details-label">
+                                        Email
+                                    </div>
+                                    <div class="profile-user-details-value">
+                                        <a><?=$row["Email"]?></a><!--href="mailto:$row["Email"]-->
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-4 profile-social">
+                                <ul class="fa-ul">
+                                    <li><i class="fa-li fa fa-twitter-square"></i><a href="#">@scjohansson</a></li>
+                                    <li><i class="fa-li fa fa-linkedin-square"></i><a href="#">John Doe </a></li>
+                                    <li><i class="fa-li fa fa-facebook-square"></i><a href="#">John Doe </a></li>
+                                    <li><i class="fa-li fa fa-skype"></i><a href="#">Black_widow</a></li>
+                                    <li><i class="fa-li fa fa-instagram"></i><a href="#">Avenger_Scarlett</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div class="tabs-wrapper profile-tabs">
+
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab-activity" data-toggle="tab">Activity</a></li>
+                                <li><a href="#tab-friends" data-toggle="tab">Friends</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab-activity">
+                                    <div class="table-responsive" style="overflow-y: scroll; height: 250px;">
+                                        <table class="table">
+                                            <tbody>
+
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-comment"></i>
+                                                    </td>
+                                                    <td>
+                                                        John Doe posted a comment in <a href="#">Avengers Initiative</a>
+                                                        project.
+                                                    </td>
+                                                    <td>
+                                                        2014/08/08 12:08
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-truck"></i>
+                                                    </td>
+                                                    <td>
+                                                        John Doe changed order status from <span
+                                                            class="label label-primary">Pending</span> to <span
+                                                            class="label label-success">Completed</span>
+                                                    </td>
+                                                    <td>
+                                                        2014/08/08 12:08
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-check"></i>
+                                                    </td>
+                                                    <td>
+                                                        John Doe posted a comment in <a href="#">Lost in Translation opening
+                                                            scene</a> discussion.
+                                                    </td>
+                                                    <td>
+                                                        2014/08/08 12:08
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-users"></i>
+                                                    </td>
+                                                    <td>
+                                                        John Doe posted a comment in <a href="#">Avengers Initiative</a>
+                                                        project.
+                                                    </td>
+                                                    <td>
+                                                        2014/08/08 12:08
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-comment"></i>
+                                                    </td>
+                                                    <td>
+                                                        John Doe posted a comment in <a href="#">Avengers Initiative</a>
+                                                        project.
+                                                    </td>
+                                                    <td>
+                                                        2014/08/08 12:08
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-comment"></i>
+                                                    </td>
+                                                    <td>
+                                                        John Doe posted a comment in <a href="#">Avengers Initiative</a>
+                                                        project.
+                                                    </td>
+                                                    <td>
+                                                        2014/08/08 12:08
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-comment"></i>
+                                                    </td>
+                                                    <td>
+                                                        John Doe posted a comment in <a href="#">Avengers Initiative</a>
+                                                        project.
+                                                    </td>
+                                                    <td>
+                                                        2014/08/08 12:08
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="tab-friends">
+
+                                    <ul class="widget-users row" style="overflow-y: scroll; height: 250px;">
+
+                                        <li class="col-md-6">
+                                            <div class="img">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                    class="img-responsive" alt>
+                                            </div>
+                                            <div class="details">
+                                                <div class="name">
+                                                    <a href="#">John Doe </a>
+                                                </div>
+                                                <div class="time">
+                                                    <i class="fa fa-clock-o"></i> Last online: 5 minutes ago
+                                                </div>
+                                                <div class="type">
+                                                    <span class="label label-danger">Admin</span>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="col-md-6">
+                                            <div class="img">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                    class="img-responsive" alt>
+                                            </div>
+                                            <div class="details">
+                                                <div class="name">
+                                                    <a href="#">Mila Kunis</a>
+                                                </div>
+                                                <div class="time online">
+                                                    <i class="fa fa-check-circle"></i> Online
+                                                </div>
+                                                <div class="type">
+                                                    <span class="label label-warning">Pending</span>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="col-md-6">
+                                            <div class="img">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                    class="img-responsive" alt>
+                                            </div>
+                                            <div class="details">
+                                                <div class="name">
+                                                    <a href="#">Ryan Gossling</a>
+                                                </div>
+                                                <div class="time online">
+                                                    <i class="fa fa-check-circle"></i> Online
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="col-md-6">
+                                            <div class="img">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                    class="img-responsive" alt>
+                                            </div>
+                                            <div class="details">
+                                                <div class="name">
+                                                    <a href="#">Robert Downey Jr.</a>
+                                                </div>
+                                                <div class="time">
+                                                    <i class="fa fa-clock-o"></i> Last online: Thursday
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="col-md-6">
+                                            <div class="img">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                    class="img-responsive" alt>
+                                            </div>
+                                            <div class="details">
+                                                <div class="name">
+                                                    <a href="#">Emma Watson</a>
+                                                </div>
+                                                <div class="time">
+                                                    <i class="fa fa-clock-o"></i> Last online: 1 week ago
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="col-md-6">
+                                            <div class="img">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                    class="img-responsive" alt>
+                                            </div>
+                                            <div class="details">
+                                                <div class="name">
+                                                    <a href="#">George Clooney</a>
+                                                </div>
+                                                <div class="time">
+                                                    <i class="fa fa-clock-o"></i> Last online: 1 month ago
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+
+                                    <br>
+
+                                    <a href="#" class="btn btn-success pull-right">View all users</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    </body>
+
+</html>
+
+<?php ob_end_flush(); ?>
