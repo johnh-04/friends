@@ -1,19 +1,33 @@
 <?php
 
-    require '../vendor/autoload.php';
-    require 'MyWebSocket.php';
-    use Ratchet\App;
-    session_start();
+// Function to retrieve the LAN IP address of the server
+require '../vendor/autoload.php';
 
-    $HOST = explode(':', $argv[1])[0];
-    $PORT = explode(':', $argv[1])[1];
+use Ratchet\Server\IoServer;
+use Ratchet\Http\HttpServer;
+use Ratchet\WebSocket\WsServer;
+use React\EventLoop\Loop;
+use React\Socket\SocketServer;
+require 'MyOwnWebSocket.php';
 
-    echo "Opening $HOST:$PORT...";
+$loop = Loop::get();
 
-    $server = new App($HOST, $PORT);
+// Create a SocketServer and bind it to the desired IP address and port
+$socket = new SocketServer($argv[1].":7777");
 
-    $server->route('/chat', new MyWebSocket);
-    $SOCKET = "$HOST:$PORT";
-    $server->run();
-    
-?>
+$_SESSION['RUN'] = TRUE;
+
+echo "Launching on " . $argv[1] . ":7777 socket...\n";
+
+$server = new IoServer(
+    new HttpServer(
+        new WsServer(
+            // WebSocket application class
+            new App()
+        )
+    ),
+    $socket,
+    $loop
+);
+
+$server->run();

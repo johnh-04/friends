@@ -1,9 +1,10 @@
 <?php
+    
 
     ob_start();
     session_start();
-
-    include './forms/config.php';
+    
+    include 'forms/config.php';
 
     $idUtente = $_GET["idUtente"];
 
@@ -263,6 +264,8 @@
 
                                             $dateTime = new DateTime();
                                             $dateTime->setTimestamp($unixTimestamp);
+                                            $timezone = new DateTimeZone('Europe/Rome');
+                                            $dateTime->setTimezone($timezone);
 
                                             $time = $dateTime->format('H:i');
 
@@ -288,6 +291,14 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <script> // to send message on Enter
+                                msg.addEventListener("keydown", (event) => {
+                                    if (event.key === 'Enter') {
+                                        send();
+                                    }
+                                })
+                            </script>
 
                         </div>
                     </div>
