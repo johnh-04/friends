@@ -2,8 +2,6 @@
 
 ### ___A simple live chat web app.___
 
-<br>
-
 ### __TL;DR;__
 
 - Really simple application based on PHP (it uses the [Ratchet](https://github.com/ratchetphp/Ratchet) library)
