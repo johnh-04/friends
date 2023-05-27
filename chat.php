@@ -79,6 +79,8 @@
                 var room = 1; //prendi stanza da input
                 var msg = document.getElementById('msg').value;
 
+                if (islink(msg)) msg = str2link(msg);
+
                 var data = {
                     idUtente: idUtente,
                     room: room,
@@ -128,15 +130,12 @@
 
                 //sendMessageToClient(room, messageText, time);
 
-                if(islink(messageText)) {
-                    messageText = str2link(messageText)
-                }
-
                 console.log('Ricevuto messaggio:', messageText);
 
                 var position = "";
 
                 if (user == idUtente) position = "float-right"; //sostituire 1 con utente corrente
+                else position = "float-left";
 
                 $("#chat").append(`
 
@@ -288,7 +287,7 @@
                                     ?>
 
                                             <li class="clearfix">
-                                                <div class="message other-message <?php if ($idSender == $idUtente) echo "float-right"?>"> <!--sostituire idutente1-->
+                                                <div class="message other-message <?php if ($idSender == $idUtente) echo "float-right"; else echo "float-left"?>"> <!--sostituire idutente1-->
                                                     <span><?=$row["Message"]?></span>
                                                     <sub class="message-data-time"><?=$time?></sub>
                                                 </div>

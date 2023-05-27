@@ -171,7 +171,6 @@ body {
 
 .chat .chat-history .other-message {
     background: #e8f1f3;
-    text-align: right
 }
 
 .chat .chat-history .other-message:after {
@@ -204,7 +203,13 @@ body {
 }
 
 .float-right {
-    float: right
+    float: right;
+    text-align: right !important;
+}
+
+.float-left {
+    float: left;
+    text-align: left !important;
 }
 
 .clearfix:after {
