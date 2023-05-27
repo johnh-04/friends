@@ -6,8 +6,8 @@
     use Ratchet\MessageComponentInterface;
     use Ratchet\ConnectionInterface;
 
-    class MyWebSocket implements MessageComponentInterface {
-
+    class App implements MessageComponentInterface {
+        
         protected $clients;
         protected $rooms;
 
@@ -36,10 +36,10 @@
 
             if (isset($data['room']) and isset($data['msg']) and isset($data['idUtente'])) {
 
-                $idUtente = $data['idUtente'];
-                $room = $data['room'];
-                $message = $data['msg'];
-                $time = date('Y-m-d H:i:s', $data['time'] / 1000);
+                $idUtente = mysqli_escape_string($conn, $data['idUtente']);
+                $room = mysqli_escape_string($conn, $data['room']);
+                $message = mysqli_escape_string($conn, $data['msg']);
+                $time = mysqli_escape_string($conn, date('Y-m-d H:i:s', $data['time'] / 1000));
 
                 $sql = "INSERT INTO messages (IdSender, IdRoom, Message, Time, Status) VALUES ('$idUtente', '$room', '$message', '$time' , 1)";
                 $res = $conn->query($sql);
@@ -79,7 +79,7 @@
             echo "Errore: " . $e->getMessage();
             $conn->close();
         }
-        
+
     }
 
 ?>
