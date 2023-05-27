@@ -1,1 +1,6 @@
-aggiungere classe per messaggi a sx (text left), messaggi a dx (text right)
+new login + conferma email + controllo user e pass + recupero password
+font
+messaggi criptati (rsa)
+websocket - mandare messaggi ad utenti diversi nella stessa stanza (broadcast nella room)
+classe per utenti
+routing composer
