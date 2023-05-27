@@ -1,5 +1,6 @@
 <?php
     
+
     ob_start();
     session_start();
     
@@ -53,6 +54,18 @@
         <script>
 
             var idUtente = <?=$idUtente?>;  //prendi utente da sessione
+
+            function islink(text) {
+                return /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/.test(text) 
+            }
+
+            function str2link(text) {
+                var replacedStr = text.replace(
+                    /((http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-]))/g,
+                    '<a href="$1" target="_blank">$1</a>'
+                );
+                return replacedStr;
+            }
 
             function scrollDown() {
 
@@ -114,6 +127,10 @@
                 var time = message.time;
 
                 //sendMessageToClient(room, messageText, time);
+
+                if(islink(messageText)) {
+                    messageText = str2link(messageText)
+                }
 
                 console.log('Ricevuto messaggio:', messageText);
 
@@ -293,7 +310,7 @@
 
                             <script> // to send message on Enter
                                 msg.addEventListener("keydown", (event) => {
-                                    if (event.key === 'Enter') {
+                                    if (event.key === 'Enter' && msg.value !== '') {
                                         send();
                                     }
                                 })
