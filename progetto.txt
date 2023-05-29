@@ -16,4 +16,3 @@ se sconosciuto: invia amicizia
 -login/registrazione
 
 novità: invia codice di conferma, visualizza pass
-
