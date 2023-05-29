@@ -31,4 +31,7 @@
 
     $server->run();
 
+    //cd ../../laragon/www/friends/forms
+    //php websocket.php <ip>
+
 ?>

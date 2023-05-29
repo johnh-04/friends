@@ -4,3 +4,8 @@ messaggi criptati (rsa)
 websocket - mandare messaggi ad utenti diversi nella stessa stanza (broadcast nella room)
 classe per utenti
 routing composer
+funzioni es6
+capire perché dove è specificato il text-align. CONTROLLA POSIZIONE MESSAGGI E TESTO
+orario a destra del messaggio!
+ORARIO VA DUE ORE AVANTI (QUANDO SI SALVA e a volte invece va bene)
+distinguere utenti (nella chat vedo tutti i messaggi inviati da tutti gli utenti)

@@ -1,6 +1,5 @@
 <?php
     
-
     ob_start();
     session_start();
     
@@ -76,7 +75,7 @@
 
             function send() {
 
-                var room = 1; //prendi stanza da input
+                var room = 1; //prendi stanza da input. ROOM
                 var msg = document.getElementById('msg').value;
 
                 if (islink(msg)) msg = str2link(msg);
@@ -92,18 +91,6 @@
 
                 msg = document.getElementById('msg').value = "";
 
-            }
-
-            function sendMessageToRoom(room, messageText, time) {
-                // Construct a new message object with the recipient and content
-                const msg = {
-                    recipient: room,
-                    content: message,
-                    time: timepan
-                };
-
-                // Send the message to the server
-                socket.send(JSON.stringify(msg));
             }
 
             var socket = new WebSocket('ws://<?=$_SERVER["SERVER_NAME"]?>:7777/chat');
@@ -134,7 +121,7 @@
 
                 var position = "";
 
-                if (user == idUtente) position = "float-right"; //sostituire 1 con utente corrente
+                if (user == idUtente) position = "float-right"; //sostituire 1 con utente corrente. float right/left
                 else position = "float-left";
 
                 $("#chat").append(`
@@ -260,7 +247,7 @@
 
                             <?php
 
-                                $sql = "SELECT * FROM rooms INNER JOIN messages USING(IdRoom) WHERE /*(IdUser1 = '$idUtente1' and IdUser2 = '$idUtente2')*/ IdRoom = 1 ORDER BY Time ASC"; //utente attuale deve andare a dx di default. io sono utente1
+                                $sql = "SELECT * FROM rooms INNER JOIN messages USING(IdRoom) WHERE IdRoom = 1 ORDER BY Time ASC"; //utente attuale deve andare a dx di default. io sono utente1
                                 $res = $conn->query($sql);
 
                             ?>

@@ -13,13 +13,10 @@
 
         public function __construct() {
             $this->clients = new \SplObjectStorage;
-            $this->rooms = new \SplObjectStorage;
         }
 
         public function onOpen(ConnectionInterface $conn) {
-            // Aggiungi la connessione alla lista dei client
             $this->clients->attach($conn);
-            // Assegna un identificatore univoco al client
             $conn->clientId = uniqid();
         }
 
@@ -46,12 +43,9 @@
 
                 if ($res) echo "row inserita\n";
 
-                /*foreach ($this->rooms as $rooms) {
-                    if ($rooms !== $from && $rooms->rooms === 1) {
-                        $rooms->send($msg);
-                        break;
-                    }
-                }*/
+
+                //$this->$data['room']->send($data->msg);
+
 
                 //$from->send($message); INVIA AL CLIENT
 
