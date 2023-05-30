@@ -13,11 +13,13 @@
 
         public function __construct() {
             $this->clients = new \SplObjectStorage;
+            $this->rooms = [];
         }
 
         public function onOpen(ConnectionInterface $conn) {
             $this->clients->attach($conn);
-            $conn->clientId = uniqid();
+            //$conn->clientId = uniqid();
+            echo "New connection! ({$conn->resourceId})\n";
         }
 
         public function onMessage(ConnectionInterface $from, $msg) {
