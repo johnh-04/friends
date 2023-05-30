@@ -251,7 +251,7 @@
                             ?>
 
                             <div class="chat-history">
-                                <ul class="m-b-0 p-2" id="chat" style="overflow-y: scroll; height: 380px;">
+                                <ul class="m-b-0 p-2" id="chat" style="overflow-y: scroll; height: 500px;"> <!-- applicare overflow al div e farlo funzionare con lo scroll -->
 
                                     <?php
                                      
