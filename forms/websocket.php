@@ -11,7 +11,6 @@
 
     $loop = Loop::get();
 
-    // Create a SocketServer and bind it to the desired IP address and port
     $socket = new SocketServer($argv[1].":7777");
 
     $_SESSION['RUN'] = TRUE;

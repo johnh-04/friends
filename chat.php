@@ -52,7 +52,7 @@
 
         <script>
 
-            var idUtente = <?=$idUtente?>;  //prendi utente da sessione
+            var idUtente = <?=$idUtente?>; //prendi utente da sessione
 
             function islink(text) {
                 return /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/.test(text) 
@@ -114,8 +114,6 @@
                 var room = message.room;
                 var messageText = message.msg;
                 var time = message.time;
-
-                //sendMessageToClient(room, messageText, time);
 
                 console.log('Ricevuto messaggio:', messageText);
 

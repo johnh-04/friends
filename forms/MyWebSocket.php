@@ -12,22 +12,23 @@
         protected $rooms;
 
         public function __construct() {
+
             $this->clients = new \SplObjectStorage;
             $this->rooms = [];
+            
         }
 
         public function onOpen(ConnectionInterface $conn) {
+
             $this->clients->attach($conn);
             //$conn->clientId = uniqid();
             echo "New connection! ({$conn->resourceId})\n";
+
         }
 
         public function onMessage(ConnectionInterface $from, $msg) {
 
             global $conn;
-            //echo "Messaggio ricevuto: {$msg}\n";
-            //$response = "Risposta dal server: Messaggio ricevuto correttamente.";
-            //$from->send($response);
 
             echo "Messaggio ricevuto: {$msg}\n";
             $data = json_decode($msg, true);
@@ -45,35 +46,29 @@
 
                 if ($res) echo "row inserita\n";
 
+                //echo "Messaggio ricevuto da " . $from->clientId . ": " . $message . "\n";
 
-                //$this->$data['room']->send($data->msg);
+                foreach ($this->clients as $client) {
+                    $client->send($msg); //send in broadcast to all clients connected
+                }
 
-
-                //$from->send($message); INVIA AL CLIENT
-
-                echo "Messaggio ricevuto da " . $from->clientId . ": " . $message . "\n";
-
-                /*foreach ($this->clients as $client) {
-                    $client->send($message);
-                }*/
-
-                $from->send($msg);
-
-                //$this->broadcastToRoom($room, $message, $idUtente);
+                //$from->send($msg);
 
             }
 
         }
 
         public function onClose(ConnectionInterface $conn) {
-            // Rimuovi la connessione dalla lista dei client
+
             $this->clients->detach($conn);
+
         }
 
         public function onError(ConnectionInterface $conn, \Exception $e) {
-            // Gestisci gli errori
+
             echo "Errore: " . $e->getMessage();
             $conn->close();
+
         }
 
     }
