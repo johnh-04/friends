@@ -153,7 +153,7 @@
 
                 $password = md5($password);
 
-                $sql = "SELECT * FROM utenti WHERE (username = '$username' and password = '$password')";
+                $sql = "SELECT * FROM users WHERE (Username = '$username' and Password = '$password')";
                 $res = $conn->query($sql);
             
                 if ($res->num_rows == 1) {
@@ -175,7 +175,7 @@
 
                     }
 
-                    header("location: ../");
+                    header("location: ../user.php?IdUser=4");
                     
                 } else {
                     

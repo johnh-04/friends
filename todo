@@ -1,13 +1,11 @@
-new login + conferma email + controllo user e pass + recupero password
+new login + conferma email + controllo user e pass + recupero password + occhio pass
 font
 messaggi criptati (rsa)
-websocket - mandare messaggi ad utenti diversi nella stessa stanza (broadcast nella room)
 classe per utenti
 routing composer
 funzioni es6
 capire perché dove è specificato il text-align. CONTROLLA POSIZIONE MESSAGGI E TESTO
-orario a destra del messaggio!
+orario a destra del messaggio! (fixed)
 ORARIO VA DUE ORE AVANTI (QUANDO SI SALVA NEL DB)
 distinguere utenti (nella chat vedo tutti i messaggi inviati da tutti gli utenti)
-messaggi vuoti possono essere inviati
-nella registrazione aggiungi le informazioni di userpage e traduci frasi
+colore form login/reg

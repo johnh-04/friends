@@ -131,20 +131,48 @@
 
                             <form name="login" action="" method="post">
 
-                                <div class="form-group">
-                                    <input type="text" class="form-control rounded-left" id="username" name="username" placeholder="Username" required>
+                                <div class="row">
+
+                                    <div class="form-group col">
+                                        <input type="text" class="form-control rounded-left" id="username" name="username" placeholder="Username" required>
+                                    </div>
+
+                                    <div class="form-group col">
+                                        <input type="email" class="form-control rounded-left" id="email" name="email" placeholder="Email" required>
+                                    </div>
+
                                 </div>
 
-                                <div class="form-group d-flex">
-                                    <input type="email" class="form-control rounded-left" id="email" name="email" placeholder="Email" required>
+                                <div class="row">
+
+                                    <div class="form-group col">
+                                        <input type="text" class="form-control rounded-left" id="name" name="name" placeholder="Name" required>
+                                    </div>
+
+                                    <div class="form-group col">
+                                        <input type="text" class="form-control rounded-left" id="surname" name="surname" placeholder="Surname" required>
+                                    </div>
+
                                 </div>
 
-                                <div class="form-group d-flex">
-                                    <input type="password" class="form-control rounded-left" id="password" name="password" placeholder="Password" required>
+                                <div class="row">
+
+                                    <div class="form-group col">
+                                        <input type="date" min="1920-01-01" max="<?=date('Y-m-d', strtotime('-14 years'))?>" class="form-control rounded-left" id="birthdate" name="birthdate" placeholder="Birthdate" required>
+                                    </div>
+
                                 </div>
 
-                                <div class="form-group d-flex">
-                                    <input type="password" class="form-control rounded-left" id="password1" name="password1" placeholder="Conferma password" required>
+                                <div class="row">
+
+                                    <div class="form-group col">
+                                        <input type="password" class="form-control rounded-left" id="password" name="password" placeholder="Password" required>
+                                    </div>
+
+                                    <div class="form-group col">
+                                        <input type="password" class="form-control rounded-left" id="password1" name="password1" placeholder="Confirm password" required>
+                                    </div>
+
                                 </div>
 
                                 <div class="form-group text-center" id="error"></div>
@@ -187,17 +215,21 @@
                 $invia = $_POST["invia"];
                 $username = $_POST["username"];
                 $email = $_POST["email"];
+                $name = $_POST["name"];
+                $surname = $_POST["surname"];
+                $birthdate = $_POST["birthdate"];
                 $password = $_POST["password"];
                 $password1 = $_POST["password1"];
+                $now = date('Y-m-d');
 
                 if ($password === $password1) {
 
-                    $sql = "SELECT * FROM utenti WHERE (username = '$username')";
+                    $sql = "SELECT * FROM users WHERE (Username = '$username')";
                     $res = $conn->query($sql);
 
                     if ($res->num_rows == 0) {
 
-                        $sql = "SELECT * FROM utenti WHERE (email = '$email')";
+                        $sql = "SELECT * FROM users WHERE (Email = '$email')";
                         $res = $conn->query($sql);
 
                         if ($res->num_rows == 0) {
@@ -212,7 +244,7 @@
 
                                     $password = md5($password);
 
-                                    $sql = "INSERT INTO utenti (username, email, password) values ('$username', '$email', '$password')";
+                                    $sql = "INSERT INTO users (Username, Email, Password, Name, Surname, BirthDate, MemDate) values ('$username', '$email', '$password', '$name', '$surname', '$birthdate', '$now')";
                                     $res = $conn->query($sql);
                                     
                                     if ($res) {
@@ -232,19 +264,19 @@
 
                                         }
 
-                                        header("location: ../");
+                                        header("location: ../user.php?IdUser=4");
                                             
                                     } else echo("<script>msg_error('Error', 1)</script>");
 
-                                } echo("<script>msg_error('La password deve contenere tra le 7 e 25 caratteri', 1)</script>");
+                                } echo("<script>msg_error('The password must contain between 7 and 25 characters', 1)</script>");
 
-                            } echo("<script>msg_error('L'username deve contenere tra i 3 e 15 caratteri', 2)</script>");
+                            } echo("<script>msg_error('The username must contain between 3 and 15 characters', 2)</script>");
 
-                        } else echo("<script>msg_error('Email già esistente', 3);</script>");
+                        } else echo("<script>msg_error('Email already exists', 3);</script>");
 
-                    } else echo("<script>msg_error('Username già esistente', 2);</script>");
+                    } else echo("<script>msg_error('Username already exists', 2);</script>");
 
-                } else echo("<script>msg_error('Le password non corrispondono', 1);</script>");
+                } else echo("<script>msg_error('Passwords do not match', 1);</script>");
                     
                 $conn->close();
 

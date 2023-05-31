@@ -61,6 +61,7 @@
         public function onClose(ConnectionInterface $conn) {
 
             $this->clients->detach($conn);
+            //utente offline
 
         }
 

@@ -9,7 +9,6 @@
 
         $_SESSION["login"] = 2;
         $_SESSION["username"] = $_COOKIE["username"];
-        if (isset($_COOKIE["email"])) $_SESSION["email"] = $_COOKIE["email"];
         $_SESSION["password"] = $_COOKIE["password"];
 
     }
