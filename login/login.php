@@ -5,7 +5,7 @@
 
     include '../forms/config.php';
     
-    if (isset($_COOKIE["login"]) or isset($_SESSION["login"])) header("location: ../index.php");
+    if (isset($_COOKIE["login"]) or isset($_SESSION["login"])) header("location: ../user.php");
     
 ?>
 
@@ -175,7 +175,7 @@
 
                     }
 
-                    header("location: ../user.php?IdUser=4");
+                    header("location: ../user.php");
                     
                 } else {
                     

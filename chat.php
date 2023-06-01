@@ -5,18 +5,7 @@
     
     include 'forms/config.php';
 
-    $_SESSION["key"] = "";
-    //appena clicco su utente -> prendo il suo id, trovo corrispondenza tra i due. se esiste prendo la keycode (uniqid()) e la uso nello scambio messaggio; altrimenti ne creo una (assicurandomi non ci siamo doppioni) e inizio comunicazione
-
-    $idUtente = $_GET["idUtente"];
-
-    $idUtente1 = 1;
-    $username1 = "johnh04";
-
-    $idUtente2 = 3;
-    $username2 = "vanni";
-
-    /*if (isset($_COOKIE["login"])) { //cookie -> session
+    if (isset($_COOKIE["login"])) { //cookie -> session
 
         $_SESSION["login"] = 2;
         $_SESSION["username"] = $_COOKIE["username"];
@@ -25,16 +14,27 @@
     }
 
     if (isset($_SESSION["login"])) {
+
+        $_SESSION["key"] = "";
+        //appena clicco su utente -> prendo il suo id, trovo corrispondenza tra i due. se esiste prendo la keycode (uniqid()) e la uso nello scambio messaggio; altrimenti ne creo una (assicurandomi non ci siamo doppioni) e inizio comunicazione
         
         $username = $_SESSION["username"];
 
-        $sql = "SELECT * FROM utenti WHERE Username = '$username'";
-        $res1 = $conn->query($sql);
-        $row1 = $res1->fetch_assoc();
+        $sql = "SELECT * FROM users WHERE Username = '$username'";
+        $res = $conn->query($sql);
+        $row = $res->fetch_assoc();
 
-        $idUtente = $row1["idUtente"];
+        $idUser = $row["IdUser"];
 
-    }*/
+    } else header("location: ./login/login.php");
+
+    //$idUtente = $_GET["idUtente"];
+
+    $idUtente1 = 1;
+    $username1 = "johnh04";
+
+    $idUtente2 = 3;
+    $username2 = "vanni";
 
 ?>
 
@@ -54,7 +54,7 @@
 
         <script>
 
-            var idUtente = <?=$idUtente?>; //prendi utente da sessione
+            var idUser = <?=$idUser?>; //prendi utente da sessione
 
             function islink(text) {
                 return /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/.test(text) 
@@ -85,7 +85,7 @@
                     if (islink(msg)) msg = str2link(msg);
 
                     var data = {
-                        idUtente: idUtente,
+                        idUser: idUser,
                         room: room,
                         msg: msg,
                         time: new Date().getTime()
@@ -162,6 +162,8 @@
                     <div class="card chat-app">
                         <div id="plist" class="people-list">
 
+                            <?=$_SESSION["username"]?>
+
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search...">
                                 <div class="input-group-prepend">
@@ -173,7 +175,7 @@
 
                             <?php
 
-                                $sql = "SELECT * FROM users WHERE IdUser <> '$idUtente'"; //amici dello user sessionme
+                                $sql = "SELECT * FROM users WHERE IdUser <> '$idUser'"; //amici dello user sessionme
                                 $res = $conn->query($sql);
 
                             ?>
@@ -250,8 +252,8 @@
                                     ?>
 
                                             <li class="clearfix">
-                                                <div class="message other-message <?php if ($idSender == $idUtente) echo "float-right"; else echo "float-left"?>"> <!--sostituire idutente1-->
-                                                    <span><?=$row["Message"]?></span>
+                                                <div class="message other-message <?php if ($idSender == $idUser) echo "float-right"; else echo "float-left"?>"> <!--sostituire idutente1-->
+                                                    <span><?=$row["Message"]?> (<?=$row["IdSender"]?>)</span>
                                                     <sub class="message-data-time"><?=$time?></sub>
                                                 </div>
                                             </li>

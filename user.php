@@ -13,14 +13,17 @@
 
     }
 
-    if (isset($_GET["IdUser"])) {
+    if (isset($_SESSION["login"])) {
 
-        $IdUser = $_GET["IdUser"];
-        $sql = "SELECT * FROM users WHERE IdUser = '$IdUser'";
+        $username = $_SESSION["username"];
+
+        $sql = "SELECT * FROM users WHERE Username = '$username'";
         $res = $conn->query($sql);
         $row = $res->fetch_assoc();
 
-    } else header("location: ./");
+        $idUser = $row["IdUser"];
+
+    } else header("location: ./login/login.php");
 
 ?>
 
@@ -75,8 +78,16 @@
                         <br>
 
                         <div class="profile-message-btn center-block text-center">
-                            <a href="#" class="btn btn-success">
+                            <a href="./chat.php" class="btn btn-success">
                                 <i class="fa fa-envelope"></i> Send message <!--non se sei tu stesso -->
+                            </a>
+                        </div>
+
+                        <br>
+
+                        <div class="profile-message-btn center-block text-center">
+                            <a href="./login/logout.php" class="btn btn-danger">
+                                <i class="fa fa-sign-out"></i> Logout <!--non se sei tu stesso -->
                             </a>
                         </div>
 

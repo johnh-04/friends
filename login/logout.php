@@ -15,6 +15,6 @@
 
     ob_end_flush();
 
-    header("location: ../");
+    header("location: login.php");
 
 ?>
