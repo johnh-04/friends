@@ -15,8 +15,7 @@
 
     if (isset($_SESSION["login"])) {
 
-        $_SESSION["key"] = "";
-        //appena clicco su utente -> prendo il suo id, trovo corrispondenza tra i due. se esiste prendo la keycode (uniqid()) e la uso nello scambio messaggio; altrimenti ne creo una (assicurandomi non ci siamo doppioni) e inizio comunicazione
+        //$_SESSION["key"] = "";
         
         $username = $_SESSION["username"];
 
@@ -29,12 +28,6 @@
     } else header("location: ./login/login.php");
 
     //$idUtente = $_GET["idUtente"];
-
-    $idUtente1 = 1;
-    $username1 = "johnh04";
-
-    $idUtente2 = 3;
-    $username2 = "vanni";
 
 ?>
 
@@ -54,7 +47,28 @@
 
         <script>
 
-            var idUser = <?=$idUser?>; //prendi utente da sessione
+            var idUser = <?=$idUser?>;
+            
+            $(document).ready(() => {
+                $(".list").click(function() {
+
+                    var idUser2 = $(this).attr('id');
+                    console.log(idUser2);
+
+                    $.ajax({
+
+                        url: './forms/key_session.php',
+                        type: 'POST',
+                        data: {idUser1: idUser, idUser2: idUser2},
+                        success: (data) => {
+                            $("#client").html(data);
+                            //retrieve key
+                        }
+
+                    });
+
+                })
+            });
 
             function islink(text) {
                 return /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/.test(text) 
@@ -77,10 +91,10 @@
 
             function send() {
 
-                var room = 1; //prendi stanza da input. ROOM
-                var msg = document.getElementById('msg').value;
+                var room = $("#idRoom").val(); //togliere key da input hidden e mettere in sessione
+                var msg = $("#msg").val();
 
-                if (msg !== '') {
+                if (msg !== '') { //invia messaggio nelle room create
 
                     if (islink(msg)) msg = str2link(msg);
 
@@ -101,7 +115,7 @@
 
             var socket = new WebSocket('ws://<?=$_SERVER["SERVER_NAME"]?>:7777/chat');
 
-            socket.onopen = function() {
+            socket.onopen = () => {
 
                 console.log('Connessione WebSocket aperta.');
                 var message = 'Ciao server!';
@@ -109,14 +123,14 @@
 
             };
             
-            socket.onmessage = function(e) {
+            socket.onmessage = (e) => {
                 
                 //var data = event.data;
                 //console.log(data); //per un singolo messaggio (stringa)
 
                 var message = JSON.parse(event.data);
 
-                var user = message.idUtente;
+                var user = message.idUser;
                 var room = message.room;
                 var messageText = message.msg;
                 var time = message.time;
@@ -125,14 +139,14 @@
 
                 var position = "";
 
-                if (user == idUtente) position = "float-right"; //sostituire 1 con utente corrente. float right/left
+                if (user == idUser) position = "float-right"; //sostituire 1 con utente corrente. float right/left
                 else position = "float-left";
 
                 $("#chat").append(`
 
                     <li class="clearfix">
                         <div class="message other-message ${position}">
-                            <span>${messageText}</span>
+                            <span>${messageText} (${idUser})</span>
                             <sub class="message-data-time">${new Date(parseInt(time)).toTimeString().substr(0, 5)}</sub>
                         </div>
                     </li>
@@ -143,11 +157,11 @@
 
             };
 
-            socket.onclose = function(event) {
+            socket.onclose = (event) => {
                 console.log('WebSocket connection closed with code:', event.code);
             };
 
-            socket.onerror = function(error) {
+            socket.onerror = (error) => {
                 console.log('WebSocket error:', error);
             };
 
@@ -180,11 +194,11 @@
 
                             ?>
 
-                            <ul class="list-unstyled chat-list mt-2 mb-0">
+                            <ul class="list-unstyled chat-list mt-2 mb-0" id="users">
 
                                 <?php while ($row = $res->fetch_assoc()): ?>
 
-                                    <li class="clearfix">
+                                    <li class="clearfix list" id="<?=$row["IdUser"]?>">
                                         <img src="<?=$row["Avatar"]?>" alt="avatar">
                                         <div class="about">
                                             <div class="name"><?=$row["Username"]?></div>
@@ -198,87 +212,13 @@
 
                         </div>
 
-                        <div class="chat">
-
-                            <div class="chat-header clearfix">
-                                <div class="row">
-
-                                    <div class="col-lg-6">
-                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                                        </a>
-                                        <div class="chat-about">
-                                            <h6 class="m-b-0">Aiden Chavez</h6>
-                                            <small>Last seen: 2 hours ago</small>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 hidden-sm text-right">
-                                        <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
-                                        <a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a>
-                                        <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
-                                        <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <?php
-
-                                $sql = "SELECT * FROM rooms INNER JOIN messages USING(IdRoom) WHERE IdRoom = 1 ORDER BY Time ASC"; //utente attuale deve andare a dx di default. io sono utente1
-                                $res = $conn->query($sql);
-
-                            ?>
+                        <div class="chat" id="client">
 
                             <div class="chat-history">
-                                <ul class="m-b-0 p-2" id="chat" style="overflow-y: scroll; height: 500px;"> <!-- applicare overflow al div e farlo funzionare con lo scroll -->
-
-                                    <?php
-                                     
-                                        while ($row = $res->fetch_assoc()):
-
-                                            $idSender = $row["IdSender"];
-
-                                            $timestamp = $row["Time"];
-                                            $unixTimestamp = strtotime($timestamp);
-
-                                            $dateTime = new DateTime();
-                                            $dateTime->setTimestamp($unixTimestamp);
-                                            $timezone = new DateTimeZone('Europe/Rome');
-                                            $dateTime->setTimezone($timezone);
-
-                                            $time = $dateTime->format('H:i');
-
-                                    ?>
-
-                                            <li class="clearfix">
-                                                <div class="message other-message <?php if ($idSender == $idUser) echo "float-right"; else echo "float-left"?>"> <!--sostituire idutente1-->
-                                                    <span><?=$row["Message"]?> (<?=$row["IdSender"]?>)</span>
-                                                    <sub class="message-data-time"><?=$time?></sub>
-                                                </div>
-                                            </li>
-
-                                    <?php endwhile; ?>
-
-                                </ul>
-                            </div>
-
-                            <div class="chat-message clearfix">
-                                <div class="input-group mb-0">
-                                    <input type="text" class="form-control" id="msg" placeholder="Enter text here...">
-                                    <div class="input-group-prepend">
-                                        <button class="input-group-text" onclick="send()"><i class="fa fa-send"></i></button>
-                                    </div>
+                                <div class="m-b-0 p-2" id="chat" style="height: 500px; text-align: center; align-items: center; vertical-align: middle;"><!-- applicare overflow al div e farlo funzionare con lo scroll -->
+                                    <img src="assets/img/logo.png" width="250px">
                                 </div>
                             </div>
-
-                            <script> // to send message on Enter
-                                msg.addEventListener("keydown", (event) => {
-                                    if (event.key === 'Enter' && msg.value !== '') {
-                                        send();
-                                    }
-                                })
-                            </script>
 
                         </div>
                     </div>

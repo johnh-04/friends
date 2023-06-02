@@ -9,19 +9,16 @@
     class App implements MessageComponentInterface {
         
         protected $clients;
-        protected $rooms;
 
         public function __construct() {
 
             $this->clients = new \SplObjectStorage;
-            $this->rooms = [];
             
         }
 
         public function onOpen(ConnectionInterface $conn) {
 
             $this->clients->attach($conn);
-            //$conn->clientId = uniqid();
             echo "New connection! ({$conn->resourceId})\n";
 
         }
@@ -34,14 +31,14 @@
             $data = json_decode($msg, true);
             //print_r($data);
 
-            if (isset($data['room']) and isset($data['msg']) and isset($data['idUtente'])) {
+            if (isset($data['room']) and isset($data['msg']) and isset($data['idUser'])) {
 
-                $idUtente = mysqli_escape_string($conn, $data['idUtente']);
+                $idUser = mysqli_escape_string($conn, $data['idUser']);
                 $room = mysqli_escape_string($conn, $data['room']);
                 $message = mysqli_escape_string($conn, $data['msg']);
                 $time = mysqli_escape_string($conn, date('Y-m-d H:i:s', $data['time'] / 1000));
 
-                $sql = "INSERT INTO messages (IdSender, IdRoom, Message, Time, Status) VALUES ('$idUtente', '$room', '$message', '$time' , 1)";
+                $sql = "INSERT INTO messages (IdSender, IdRoom, Message, Time, Status) VALUES ('$idUser', '$room', '$message', '$time' , 1)";
                 $res = $conn->query($sql);
 
                 if ($res) echo "row inserita\n";
@@ -49,7 +46,7 @@
                 //echo "Messaggio ricevuto da " . $from->clientId . ": " . $message . "\n";
 
                 foreach ($this->clients as $client) {
-                    $client->send($msg); //send in broadcast to all clients connected
+                    $client->send($msg); //send in broadcast to all clients connected. RISOLVI QUESTO, DISTINGUI PER ROOM
                 }
 
                 //$from->send($msg);
