@@ -9,10 +9,12 @@
     class App implements MessageComponentInterface {
         
         protected $clients;
+        protected $rooms;
 
         public function __construct() {
 
             $this->clients = new \SplObjectStorage;
+            $this->rooms = [];
             
         }
 
@@ -45,11 +47,23 @@
 
                 //echo "Messaggio ricevuto da " . $from->clientId . ": " . $message . "\n";
 
-                foreach ($this->clients as $client) {
+                /*foreach ($this->clients as $client) {
                     $client->send($msg); //send in broadcast to all clients connected. RISOLVI QUESTO, DISTINGUI PER ROOM
-                }
+                }*/
 
-                //$from->send($msg);
+                $this->joinRoom($from, $room);
+
+                if (isset($this->rooms[$room])) {
+
+                    foreach ($this->rooms[$room] as $client) {
+                        $client->send($msg);
+                    }
+
+                    //ogni utente (con stesso id o diverso) quando entra in una stanza deve fare la joinroom perché adesso si connette solo quando manda un messaggio. quando cambia stanza o logout -> leaveroom (nella stessa chat con stessi utenti bisogna prima mandare un mess)
+                    //CONTROLLO: idPartenza e idArrivo diversi, idPartenza uguale e idArrivo diverso, idPartenza uguale e idArrivo uguale, idArrivo messo dal punto di visto che manda e riceve
+                    //BROWSER CHROME
+                    //$from->send($msg);
+                }
 
             }
 
@@ -60,6 +74,14 @@
             $this->clients->detach($conn);
             //utente offline
 
+            /*foreach ($this->rooms as &$room) {
+                if (($key = array_search($conn, $room)) !== false) {
+                    unset($room[$key]);
+                }
+            }*/
+
+            //$this->leaveRoom($from, $room); CHIUDI CONNESSIONE
+
         }
 
         public function onError(ConnectionInterface $conn, \Exception $e) {
@@ -69,6 +91,29 @@
 
         }
 
-    }
+        public function joinRoom(ConnectionInterface $conn, $room) {
+        // Create the room if it doesn't exist
+            if (!isset($this->rooms[$room])) {
+                $this->rooms[$room] = new SplObjectStorage();
+            }
+
+            // Add the client to the room
+            $this->rooms[$room]->attach($conn);
+        }
+
+        public function leaveRoom(ConnectionInterface $conn, $room) {
+            // Check if the room exists
+            if (isset($this->rooms[$room])) {
+                // Remove the client from the room
+                $this->rooms[$room]->detach($conn);
+
+                // If the room is empty, remove it
+                if ($this->rooms[$room]->count() === 0) {
+                    unset($this->rooms[$room]);
+                }
+            }
+        }
+
+    } 
 
 ?>

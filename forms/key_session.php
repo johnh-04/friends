@@ -57,14 +57,19 @@
 
         function scrollDown() {
 
-        var chat = document.getElementById('chat');
-        chat.scrollTop = chat.scrollHeight;
+            var chat = document.getElementById('chat');
+            chat.scrollTop = chat.scrollHeight;
 
         }
 
+        $(document).ready(() => {
+            scrollDown();
+            document.getElementById("msg").focus();
+        });
+
     </script>
 
-    <div class="chat-header clearfix" onLoad="scrollDown()"> <!--NON FUNZIONA LO SCROLLDOWN-->
+    <div class="chat-header clearfix">
         <div class="row">
 
             <div class="col-lg-6">
