@@ -47,7 +47,31 @@
 
         <script>
 
+            var socket = new WebSocket('ws://<?=$_SERVER["SERVER_NAME"]?>:7777/chat');
             var idUser = <?=$idUser?>;
+
+            function selectRoom(room) {
+
+                //if (socket.readyState === WebSocket.OPEN) socket.close();
+
+                var socket = new WebSocket('ws://<?=$_SERVER["SERVER_NAME"]?>:7777/chat');
+
+                socket.onopen = () => {
+
+                    console.log(`Connessione WebSocket aperta nella stanza ${room}`);
+                    var message = 'Ciao server!';
+                    socket.send(message);
+
+                    var data = {
+                        idUser: 0,
+                        room: room
+                    };
+
+                    socket.send(JSON.stringify(data));
+
+                };
+
+            }
             
             $(document).ready(() => {
                 $(".list").click(function() {
@@ -62,7 +86,7 @@
                         data: {idUser1: idUser, idUser2: idUser2},
                         success: (data) => {
                             $("#client").html(data);
-                            //retrieve key
+                            selectRoom($("#idRoom").val());
                         }
 
                     });
@@ -113,7 +137,7 @@
 
             }
 
-            var socket = new WebSocket('ws://<?=$_SERVER["SERVER_NAME"]?>:7777/chat');
+            /*var socket = new WebSocket('ws://< ?=$_SERVER["SERVER_NAME"]?>:7777/chat');
 
             socket.onopen = () => {
 
@@ -121,7 +145,7 @@
                 var message = 'Ciao server!';
                 socket.send(message);
 
-            };
+            };*/
             
             socket.onmessage = (e) => {
                 

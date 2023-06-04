@@ -33,7 +33,14 @@
             $data = json_decode($msg, true);
             //print_r($data);
 
-            if (isset($data['room']) and isset($data['msg']) and isset($data['idUser'])) {
+            if ($data['idUser'] == 0) {
+
+                $room = $data['room'];
+
+                $this->joinRoom($from, $room);
+                echo "connessione room $room";
+
+            } else if (isset($data['room']) and isset($data['msg']) and isset($data['idUser'])) {
 
                 $idUser = mysqli_escape_string($conn, $data['idUser']);
                 $room = mysqli_escape_string($conn, $data['room']);
@@ -51,8 +58,6 @@
                     $client->send($msg); //send in broadcast to all clients connected. RISOLVI QUESTO, DISTINGUI PER ROOM
                 }*/
 
-                $this->joinRoom($from, $room);
-
                 if (isset($this->rooms[$room])) {
 
                     foreach ($this->rooms[$room] as $client) {
@@ -63,6 +68,9 @@
                     //CONTROLLO: idPartenza e idArrivo diversi, idPartenza uguale e idArrivo diverso, idPartenza uguale e idArrivo uguale, idArrivo messo dal punto di visto che manda e riceve
                     //BROWSER CHROME
                     //$from->send($msg);
+                    /*
+                    visto che una persona appena manda il messaggio è nella room (e non cambia se questo cambia stanza) allora bisogna assegnarla ogni volta che si collega
+                    */
                 }
 
             }
@@ -92,13 +100,15 @@
         }
 
         public function joinRoom(ConnectionInterface $conn, $room) {
-        // Create the room if it doesn't exist
+            // Create the room if it doesn't exist
             if (!isset($this->rooms[$room])) {
                 $this->rooms[$room] = new SplObjectStorage();
             }
 
             // Add the client to the room
             $this->rooms[$room]->attach($conn);
+    
+            echo "Client ({$conn->resourceId}) joined room: {$room}\n";
         }
 
         public function leaveRoom(ConnectionInterface $conn, $room) {

@@ -63,8 +63,10 @@
         }
 
         $(document).ready(() => {
+
             scrollDown();
             document.getElementById("msg").focus();
+            
         });
 
     </script>
