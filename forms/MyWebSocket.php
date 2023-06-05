@@ -60,7 +60,7 @@
 
                     //$msg = json_encode(array('idUser' => $idUser, 'room' => $room, 'message' => $message, 'time' => $time));
 
-                    echo $msg;
+                    //echo $msg;
 
                     $this->sendMessage($from, $room, $msg, null);
             
@@ -127,7 +127,6 @@
 
                 foreach ($this->rooms[$room] as $client) {
 
-                    //capisci per quanto cicla il foreach
                     // Broadcast the message to every user connected to the room
                     $client->send($msg);
 

@@ -253,7 +253,7 @@
 
                                             setcookie("username", $_POST["username"], time() + 2592000, "/friends"); //30 days
                                             setcookie("password", $_POST["password"], time() + 2592000, "/friends"); //30 days
-                                            setcookie("login", 1, time() + 2592000, "/xnews"); //30 days
+                                            setcookie("login", 1, time() + 2592000, "/friends"); //30 days
 
                                         } else {
 

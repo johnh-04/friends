@@ -188,19 +188,25 @@
         <div class="container">
             <div class="row clearfix">
                 <div class="col-lg-12">
-                    <div class="card chat-app">
-                        <div id="plist" class="people-list">
+                    <div class="card chat-app" style="height: 715px; justify-content: space-between;">
+                        <div id="plist" class="people-list" style="width: 290px">
 
-                            <?=$_SESSION["username"]?>
+                            <div class="clearfix pl-2">
+                                <img src="<?=$row["Avatar"]?>" alt="avatar" width="50px">
+                                <div class="about">
+                                    <div class="name"><?=$_SESSION["username"]?></div>
+                                    <div class="status"><a href="user.php" style="text-decoration: none; color: #999"><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</a></div>
+                                </div>
+                            </div>
 
-                            <div class="input-group">
+                            <!--<div class="input-group mb-4">
                                 <input type="text" class="form-control" placeholder="Search...">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-search"></i></span>
                                 </div>
-                            </div>
+                            </div>-->
                             
-                            <br>
+                            <hr>
 
                             <?php
 
@@ -209,7 +215,7 @@
 
                             ?>
 
-                            <ul class="list-unstyled chat-list mt-2 mb-0" id="users">
+                            <ul class="list-unstyled chat-list mt-2 mb-0" id="users" style="overflow-y: scroll; height: 590px;">
 
                                 <?php while ($row = $res->fetch_assoc()): ?>
 
