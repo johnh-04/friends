@@ -71,11 +71,12 @@
 
                 };
 
-                socket.onmessage = (e) => {
+                socket.onmessage = (event) => {
                 
                     //var data = event.data;
                     //console.log(data); //per un singolo messaggio (stringa)
 
+                    //console.log(event.data)
                     var message = JSON.parse(event.data);
 
                     var user = message.idUser;
@@ -94,7 +95,7 @@
 
                         <li class="clearfix">
                             <div class="message other-message ${position}">
-                                <span>${messageText} (${idUser})</span>
+                                <span>${messageText}</span>
                                 <sub class="message-data-time">${new Date(parseInt(time)).toTimeString().substr(0, 5)}</sub>
                             </div>
                         </li>
@@ -160,7 +161,7 @@
                 var room = $("#idRoom").val(); //togliere key da input hidden e mettere in sessione
                 var msg = $("#msg").val();
 
-                if (msg !== '') { //invia messaggio nelle room create
+                if (msg !== '') {
 
                     if (islink(msg)) msg = str2link(msg);
 
@@ -203,7 +204,7 @@
 
                             <?php
 
-                                $sql = "SELECT * FROM users WHERE IdUser <> '$idUser'"; //amici dello user sessionme
+                                $sql = "SELECT * FROM users WHERE IdUser <> '$idUser'"; //amici dello user sessione
                                 $res = $conn->query($sql);
 
                             ?>

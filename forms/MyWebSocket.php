@@ -55,10 +55,14 @@
                     //echo "Messaggio ricevuto da " . $from->clientId . ": " . $message . "\n";
 
                     /*foreach ($this->clients as $client) {
-                        $client->send($msg); //send in broadcast to all clients connected. RISOLVI QUESTO, DISTINGUI PER ROOM
+                        $client->send($msg); //send in broadcast to all clients connected.
                     }*/
 
-                    $this->sendMessage($from, $room, $message, null);
+                    //$msg = json_encode(array('idUser' => $idUser, 'room' => $room, 'message' => $message, 'time' => $time));
+
+                    echo $msg;
+
+                    $this->sendMessage($from, $room, $msg, null);
             
                     //$from->send($msg);
 
@@ -117,14 +121,15 @@
             }
         }*/
 
-        protected function sendMessage(ConnectionInterface $from, $room, $message, $toUser) {
+        protected function sendMessage(ConnectionInterface $from, $room, $msg, $toUser) {
 
             if (isset($this->rooms[$room])) {
 
                 foreach ($this->rooms[$room] as $client) {
 
+                    //capisci per quanto cicla il foreach
                     // Broadcast the message to every user connected to the room
-                    $client->send($message);
+                    $client->send($msg);
 
                     // Send a private message to the specified user
                     /*if ($client !== $from && $client->resourceId == $toUser) {
