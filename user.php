@@ -5,7 +5,8 @@
 
     include './forms/config.php';
 
-    if (isset($_COOKIE["login"])) { //cookie -> session
+    if (!isset($_COOKIE["login"]) and !isset($_SESSION["login"])) header("location: ./login/login.php");
+    else if (isset($_COOKIE["login"])) { //cookie -> session
 
         $_SESSION["login"] = 2;
         $_SESSION["username"] = $_COOKIE["username"];
@@ -13,17 +14,13 @@
 
     }
 
-    if (isset($_SESSION["login"])) {
+    $username = $_SESSION["username"];
 
-        $username = $_SESSION["username"];
+    $sql = "SELECT * FROM users WHERE Username = '$username'";
+    $res = $conn->query($sql);
+    $row = $res->fetch_assoc();
 
-        $sql = "SELECT * FROM users WHERE Username = '$username'";
-        $res = $conn->query($sql);
-        $row = $res->fetch_assoc();
-
-        $idUser = $row["IdUser"];
-
-    } else header("location: ./login/login.php");
+    $idUser = $row["IdUser"];
 
 ?>
 

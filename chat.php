@@ -52,9 +52,9 @@
 
             function selectRoom(room) {
 
-                //if (socket.readyState === WebSocket.OPEN) socket.close();
+                if (socket.readyState === WebSocket.OPEN) socket.close();
 
-                var socket = new WebSocket('ws://<?=$_SERVER["SERVER_NAME"]?>:7777/chat');
+                socket = new WebSocket('ws://<?=$_SERVER["SERVER_NAME"]?>:7777/chat');
 
                 socket.onopen = () => {
 
@@ -69,6 +69,48 @@
 
                     socket.send(JSON.stringify(data));
 
+                };
+
+                socket.onmessage = (e) => {
+                
+                    //var data = event.data;
+                    //console.log(data); //per un singolo messaggio (stringa)
+
+                    var message = JSON.parse(event.data);
+
+                    var user = message.idUser;
+                    var room = message.room;
+                    var messageText = message.msg;
+                    var time = message.time;
+
+                    console.log('Ricevuto messaggio:', messageText);
+
+                    var position = "";
+
+                    if (user == idUser) position = "float-right"; //float right/left
+                    else position = "float-left";
+
+                    $("#chat").append(`
+
+                        <li class="clearfix">
+                            <div class="message other-message ${position}">
+                                <span>${messageText} (${idUser})</span>
+                                <sub class="message-data-time">${new Date(parseInt(time)).toTimeString().substr(0, 5)}</sub>
+                            </div>
+                        </li>
+                        
+                    `);
+
+                    scrollDown();
+
+                };
+
+                socket.onclose = (event) => {
+                    console.log('WebSocket connection closed with code:', event.code);
+                };
+
+                socket.onerror = (error) => {
+                    console.log('WebSocket error:', error);
                 };
 
             }
@@ -136,58 +178,6 @@
                 }
 
             }
-
-            /*var socket = new WebSocket('ws://< ?=$_SERVER["SERVER_NAME"]?>:7777/chat');
-
-            socket.onopen = () => {
-
-                console.log('Connessione WebSocket aperta.');
-                var message = 'Ciao server!';
-                socket.send(message);
-
-            };*/
-            
-            socket.onmessage = (e) => {
-                
-                //var data = event.data;
-                //console.log(data); //per un singolo messaggio (stringa)
-
-                var message = JSON.parse(event.data);
-
-                var user = message.idUser;
-                var room = message.room;
-                var messageText = message.msg;
-                var time = message.time;
-
-                console.log('Ricevuto messaggio:', messageText);
-
-                var position = "";
-
-                if (user == idUser) position = "float-right"; //sostituire 1 con utente corrente. float right/left
-                else position = "float-left";
-
-                $("#chat").append(`
-
-                    <li class="clearfix">
-                        <div class="message other-message ${position}">
-                            <span>${messageText} (${idUser})</span>
-                            <sub class="message-data-time">${new Date(parseInt(time)).toTimeString().substr(0, 5)}</sub>
-                        </div>
-                    </li>
-                    
-                `);
-
-                scrollDown();
-
-            };
-
-            socket.onclose = (event) => {
-                console.log('WebSocket connection closed with code:', event.code);
-            };
-
-            socket.onerror = (error) => {
-                console.log('WebSocket error:', error);
-            };
 
         </script>
         

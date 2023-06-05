@@ -8,4 +8,6 @@ capire perché dove è specificato il text-align. CONTROLLA POSIZIONE MESSAGGI E
 orario a destra del messaggio! (fixed)
 ORARIO VA DUE ORE AVANTI (QUANDO SI SALVA NEL DB)
 distinguere utenti (nella chat vedo tutti i messaggi inviati da tutti gli utenti)
-colore form login/reg
+colore form login/reg. se utente preme cookie in registrazione ritorna al login (cookie criptati). se si cancellano cookie si resetta (perché non salva session)
+lista scorrevole utenti al lato
+funziona solo su chrome

@@ -33,44 +33,35 @@
             $data = json_decode($msg, true);
             //print_r($data);
 
-            if ($data['idUser'] == 0) {
+            if (isset($data['idUser']) and isset($data['room'])) {
+                
+                if ($data['idUser'] == 0 and !isset($data['msg']) and !isset($data['time'])) {
 
-                $room = $data['room'];
+                    $room = $data['room'];
+                    $this->joinRoom($from, $room);
 
-                $this->joinRoom($from, $room);
-                echo "connessione room $room";
+                } else if (isset($data['msg']) and isset($data['time'])) {
 
-            } else if (isset($data['room']) and isset($data['msg']) and isset($data['idUser'])) {
+                    $idUser = mysqli_escape_string($conn, $data['idUser']);
+                    $room = mysqli_escape_string($conn, $data['room']);
+                    $message = mysqli_escape_string($conn, $data['msg']);
+                    $time = mysqli_escape_string($conn, date('Y-m-d H:i:s', $data['time'] / 1000));
 
-                $idUser = mysqli_escape_string($conn, $data['idUser']);
-                $room = mysqli_escape_string($conn, $data['room']);
-                $message = mysqli_escape_string($conn, $data['msg']);
-                $time = mysqli_escape_string($conn, date('Y-m-d H:i:s', $data['time'] / 1000));
+                    $sql = "INSERT INTO messages (IdSender, IdRoom, Message, Time, Status) VALUES ('$idUser', '$room', '$message', '$time' , 1)";
+                    $res = $conn->query($sql);
 
-                $sql = "INSERT INTO messages (IdSender, IdRoom, Message, Time, Status) VALUES ('$idUser', '$room', '$message', '$time' , 1)";
-                $res = $conn->query($sql);
+                    if ($res) echo "row inserita\n";
 
-                if ($res) echo "row inserita\n";
+                    //echo "Messaggio ricevuto da " . $from->clientId . ": " . $message . "\n";
 
-                //echo "Messaggio ricevuto da " . $from->clientId . ": " . $message . "\n";
+                    /*foreach ($this->clients as $client) {
+                        $client->send($msg); //send in broadcast to all clients connected. RISOLVI QUESTO, DISTINGUI PER ROOM
+                    }*/
 
-                /*foreach ($this->clients as $client) {
-                    $client->send($msg); //send in broadcast to all clients connected. RISOLVI QUESTO, DISTINGUI PER ROOM
-                }*/
-
-                if (isset($this->rooms[$room])) {
-
-                    foreach ($this->rooms[$room] as $client) {
-                        $client->send($msg);
-                    }
-
-                    //ogni utente (con stesso id o diverso) quando entra in una stanza deve fare la joinroom perché adesso si connette solo quando manda un messaggio. quando cambia stanza o logout -> leaveroom (nella stessa chat con stessi utenti bisogna prima mandare un mess)
-                    //CONTROLLO: idPartenza e idArrivo diversi, idPartenza uguale e idArrivo diverso, idPartenza uguale e idArrivo uguale, idArrivo messo dal punto di visto che manda e riceve
-                    //BROWSER CHROME
+                    $this->sendMessage($from, $room, $message, null);
+            
                     //$from->send($msg);
-                    /*
-                    visto che una persona appena manda il messaggio è nella room (e non cambia se questo cambia stanza) allora bisogna assegnarla ogni volta che si collega
-                    */
+
                 }
 
             }
@@ -94,12 +85,13 @@
 
         public function onError(ConnectionInterface $conn, \Exception $e) {
 
-            echo "Errore: " . $e->getMessage();
+            echo "Error: " . $e->getMessage();
             $conn->close();
 
         }
 
         public function joinRoom(ConnectionInterface $conn, $room) {
+
             // Create the room if it doesn't exist
             if (!isset($this->rooms[$room])) {
                 $this->rooms[$room] = new SplObjectStorage();
@@ -109,9 +101,10 @@
             $this->rooms[$room]->attach($conn);
     
             echo "Client ({$conn->resourceId}) joined room: {$room}\n";
+
         }
 
-        public function leaveRoom(ConnectionInterface $conn, $room) {
+        /*public function leaveRoom(ConnectionInterface $conn, $room) {
             // Check if the room exists
             if (isset($this->rooms[$room])) {
                 // Remove the client from the room
@@ -122,6 +115,26 @@
                     unset($this->rooms[$room]);
                 }
             }
+        }*/
+
+        protected function sendMessage(ConnectionInterface $from, $room, $message, $toUser) {
+
+            if (isset($this->rooms[$room])) {
+
+                foreach ($this->rooms[$room] as $client) {
+
+                    // Broadcast the message to every user connected to the room
+                    $client->send($message);
+
+                    // Send a private message to the specified user
+                    /*if ($client !== $from && $client->resourceId == $toUser) {
+                        $client->send($message);
+                    }*/
+
+                }
+
+            }
+
         }
 
     } 
