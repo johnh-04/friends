@@ -63,8 +63,9 @@
                     socket.send(message);
 
                     var data = {
-                        idUser: 0,
-                        room: room
+                        idUser: idUser,
+                        room: room,
+                        join: 1
                     };
 
                     socket.send(JSON.stringify(data));
@@ -193,9 +194,14 @@
 
                             <div class="clearfix pl-2">
                                 <img src="<?=$row["Avatar"]?>" alt="avatar" width="50px">
-                                <div class="about">
-                                    <div class="name"><?=$_SESSION["username"]?></div>
-                                    <div class="status"><a href="user.php" style="text-decoration: none; color: #999"><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</a></div>
+                                <div class="about row">
+                                    <div class="col-8">
+                                        <div class="name"><?=$_SESSION["username"]?></div>
+                                        <div class="status"><a href="user.php" style="text-decoration: none; color: #999" target="_blank"><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</a></div>
+                                    </div>
+                                    <div class="col-4 hidden-sm text-right">
+                                        <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-fire"></i></a>
+                                    </div>
                                 </div>
                             </div>
 

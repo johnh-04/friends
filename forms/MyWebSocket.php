@@ -35,12 +35,16 @@
 
             if (isset($data['idUser']) and isset($data['room'])) {
                 
-                if ($data['idUser'] == 0 and !isset($data['msg']) and !isset($data['time'])) {
+                if (isset($data['join']) and !isset($data['msg']) and !isset($data['time'])) {
 
-                    $room = $data['room'];
-                    $this->joinRoom($from, $room);
+                    if ($data['join'] == 1) {
 
-                } else if (isset($data['msg']) and isset($data['time'])) {
+                        $room = $data['room'];
+                        $this->joinRoom($from, $room);
+
+                    }
+
+                } else if (!isset($data['join']) and isset($data['msg']) and isset($data['time'])) {
 
                     $idUser = mysqli_escape_string($conn, $data['idUser']);
                     $room = mysqli_escape_string($conn, $data['room']);

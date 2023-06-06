@@ -36,7 +36,42 @@
         <link rel="stylesheet" href="assets/css/user.css">
         <link rel="icon" href="assets/img/favicon.png">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <script type="text/javascript" src="/jquery/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script>
+
+            function input() {
+
+                var idUser = <?=$idUser?>;
+                var img = document.getElementById('files');
+                var formdata = new FormData();
+
+                var file = img.files[0];
+
+                if (file != null) {
+                    
+                    formdata.append('idUser', idUser);
+                    formdata.append('img', file, file.name);
+
+                    $.ajax({
+
+                        url: './forms/edit.php',
+                        type: 'POST',
+                        data: formdata,
+                        processData: false,
+                        contentType: false,
+                        success: (data) => {
+                            console.log(data)
+                            $("#avatar").attr('src', data); //fare aggiornamento in automatico!!!!
+                        }
+
+                    });
+
+                }
+
+            }
+            
+        </script>
 
     </head>
 
@@ -53,7 +88,7 @@
                             <i class="fa fa-check-circle"></i>Online
                         </div>
 
-                        <img src="<?=$row["Avatar"]?>" class="profile-img img-responsive center-block">
+                        <img src="<?=$row["Avatar"]?>" id="avatar" class="profile-img img-responsive center-block">
 
                         <div class="profile-label">
                             <span class="label label-danger">Admin</span>
@@ -96,9 +131,10 @@
 
                         <div class="profile-header">
                             <h3><span>User info</span></h3>
-                            <a href="#" class="btn btn-primary edit-profile">
+                            <button class="btn btn-primary edit-profile" onclick="document.getElementById('files').click();">
                                 <i class="fa fa-pencil-square fa-lg"></i> Edit profile
-                            </a>
+                                <input type="file" id="files" accept="image/png" style="display: none;" onchange="input()">
+                            </button>
                         </div>
 
                         <div class="row profile-user-info">
