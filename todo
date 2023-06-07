@@ -1,12 +1,13 @@
-new login + conferma email + controllo user e pass + recupero password + occhio pass (problema apostrofi, metti il doppio)
+new login + conferma email + controllo user e pass + recupero password + occhio pass (problema apostrofi, metti il doppio), username in minuscolo
 font
 messaggi criptati (rsa)
 classe per utenti
 routing composer
 funzioni es6
+404
 capire perché dove è specificato il text-align. CONTROLLA POSIZIONE MESSAGGI E TESTO
-orario a destra del messaggio! (fixed)
-ORARIO VA DUE ORE AVANTI (QUANDO SI SALVA NEL DB)
+orario a destra del messaggio! (mettere fixed)
 funziona solo su chrome (su firefox funziona adesso (non so perché))
 link al profilo sotto icona utente (aggiungere altro al lato)
 amici -> tabella room, si crea quando uno accetta amicizia (keysession)
+responsive

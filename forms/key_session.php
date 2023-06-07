@@ -109,8 +109,8 @@
 
                     $dateTime = new DateTime();
                     $dateTime->setTimestamp($unixTimestamp);
-                    $timezone = new DateTimeZone('Europe/Rome');
-                    $dateTime->setTimezone($timezone);
+                    /*$timezone = new DateTimeZone('Europe/Rome');
+                    $dateTime->setTimezone($timezone);*/
 
                     $time = $dateTime->format('H:i');
 
