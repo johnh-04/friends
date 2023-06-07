@@ -9,12 +9,21 @@
 
     $idUser = $_POST["idUser"];
 
-    if (isset($_FILES['img'])) {
+    $sql = "SELECT * FROM users WHERE (IdUser = '$idUser')";
+    $res = $conn->query($sql);
+    $row = $res->fetch_assoc();
+
+    $file = substr($row["Avatar"], 19);
+
+    if ($file == "default.jpg" or intval(substr($file, 26, 1)) == 1) $id = 0;
+    else $id = 1; //non funziona. si ferma all'incremento di 1
+
+    if (isset($_FILES["img"])) {
 
         $img = $_FILES["img"]["tmp_name"];
 
         $targetDir = "../assets/img/profile/"; 
-        $targetFile = $targetDir . "profile$idUser" . ".png";
+        $targetFile = $targetDir . "profile" . "$id" . "$idUser" . ".png";
         
         move_uploaded_file($img, $targetFile);
 
@@ -27,6 +36,6 @@
 
     }
 
+    ob_end_flush(); 
+ 
 ?>
-
-<?php ob_end_flush(); ?>

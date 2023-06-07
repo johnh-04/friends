@@ -193,7 +193,7 @@
                         <div id="plist" class="people-list" style="width: 290px">
 
                             <div class="clearfix pl-2">
-                                <img src="<?=$row["Avatar"]?>" alt="avatar" width="50px">
+                                <img src="<?=$row["Avatar"]?>" alt="avatar" width="45px" height="45px">
                                 <div class="about row">
                                     <div class="col-8">
                                         <div class="name"><?=$_SESSION["username"]?></div>
@@ -226,7 +226,7 @@
                                 <?php while ($row = $res->fetch_assoc()): ?>
 
                                     <li class="clearfix list" id="<?=$row["IdUser"]?>">
-                                        <img src="<?=$row["Avatar"]?>" alt="avatar">
+                                        <img src="<?=$row["Avatar"]?>" alt="avatar" width="45px" height="45px">
                                         <div class="about">
                                             <div class="name"><?=$row["Username"]?></div>
                                             <div class="status"><i class="fa fa-circle offline"></i> left 7 mins ago </div>

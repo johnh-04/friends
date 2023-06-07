@@ -88,7 +88,7 @@
                             <i class="fa fa-check-circle"></i>Online
                         </div>
 
-                        <img src="<?=$row["Avatar"]?>" id="avatar" class="profile-img img-responsive center-block">
+                        <img src="<?=$row["Avatar"]?>" id="avatar" class="profile-img center-block" width="200px" height="200px">
 
                         <div class="profile-label">
                             <span class="label label-danger">Admin</span>
