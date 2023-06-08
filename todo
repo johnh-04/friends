@@ -1,4 +1,4 @@
-new login + conferma email + controllo user e pass + recupero password + occhio pass (problema apostrofi, metti il doppio), username in minuscolo
+conferma email + controllo user e pass + recupero password
 font
 messaggi criptati (rsa)
 classe per utenti

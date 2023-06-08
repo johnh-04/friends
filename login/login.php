@@ -28,7 +28,7 @@
         <style>
 
             body {
-                background-color: #ffe7de;
+                background-color: #efefef;
                 /*background-image: url("../assets/img/slide/slide-3.jpg");
                 overflow: hidden;
                 height: 600px;
@@ -36,32 +36,58 @@
             }
 
             .login-wrap {
-                background-color: #ffbaba !important;
-                border: 1px solid #ffabab;
+                background-color: #f7f7f7 !important;
+                border: 1px solid #f4f0ec;
                 margin-top: -20px;
             }
 
             input[type=submit], .icon {
-                background-color: #dc3545 !important;
+                background-color: #00ccff !important;
+                border-color: #00b7eb;
                 color: #fff;
             }
 
             input[type=submit]:hover {
-                color: #eaedf6 !important;
+                color: #f7f7f7 !important;
             }
 
             a, .checkbox-wrap {
-                color: #dc3545 !important;
+                color: #00ccff !important;
                 font-weight: bold;
             }
 
             .form-control:focus {
-                border-color: #dc3545 !important;
+                border-color: #00ccff !important;
             }
 
             #error {
                 color: #ff0000;
                 font-weight: bold;
+            }
+
+            input[type=password], input[type=text] {
+                padding-right: 40px;
+            } 
+
+            #togglePassword {
+                position: relative;
+                cursor: pointer;
+            }
+
+            #eyeIcon {
+                position: absolute;
+                right: 15px;
+                margin-left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .fa-eye-slash:before {
+                content: "\f070";
+            }
+
+            .fa-eye:before {
+                content: "\f06e";
             }
 
         </style>
@@ -78,6 +104,27 @@
                 document.getElementById('error').innerText = 'Wrong Credentials';
                 document.getElementById('username').style.borderColor = '#ff0000';
                 document.getElementById('password').style.borderColor = '#ff0000';
+
+            }
+
+            function togglePasswordVisibility() {
+
+                var password = document.getElementById("password");
+                var eyeIcon = document.getElementById("eyeIcon");
+
+                if (password.type == "password") {
+
+                    password.type = "text";
+                    eyeIcon.classList.remove("fa-eye");
+                    eyeIcon.classList.add("fa-eye-slash");
+
+                } else {
+
+                    password.type = "password";
+                    eyeIcon.classList.remove("fa-eye-slash");
+                    eyeIcon.classList.add("fa-eye");
+
+                }
 
             }
 
@@ -107,6 +154,9 @@
 
                                 <div class="form-group d-flex">
                                     <input type="password" class="form-control rounded-left" id="password" name="password" placeholder="Password" required>
+                                    <span id="togglePassword" onclick="togglePasswordVisibility()">
+                                        <i class="fa fa-eye" class="eyeIcon" id="eyeIcon"></i>
+                                    </span>
                                     <!--<input type="checkbox" onclick="alert('u')" style="border-color: white;"><i class="bi bi-eye" id="togglePassword" style="margin-left: -30px; margin-top: 13px; cursor: pointer;"></i>-->
                                 </div>
 
@@ -148,8 +198,8 @@
             if (isset($_POST["invia"])) {
 
                 $invia = $_POST["invia"];
-                $username = $_POST["username"];
-                $password = $_POST["password"];
+                $username = addslashes($_POST["username"]);
+                $password = addslashes($_POST["password"]);
 
                 $password = md5($password);
 

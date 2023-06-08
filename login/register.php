@@ -28,7 +28,7 @@
         <style>
 
             body {
-                background-color: #ffe7de;
+                background-color: #efefef;
                 /*background-image: url("../assets/img/slide/slide-3.jpg");
                 overflow: hidden;
                 height: 600px;
@@ -36,32 +36,58 @@
             }
 
             .login-wrap {
-                background-color: #ffbaba !important;
-                border: 1px solid #ffabab;
+                background-color: #f7f7f7 !important;
+                border: 1px solid #f4f0ec;
                 margin-top: -20px;
             }
 
             input[type=submit], .icon {
-                background-color: #dc3545 !important;
+                background-color: #00ccff !important;
+                border-color: #00b7eb;
                 color: #fff;
             }
 
             input[type=submit]:hover {
-                color: #eaedf6 !important;
+                color: #f7f7f7 !important;
             }
 
             a, .checkbox-wrap {
-                color: #dc3545 !important;
+                color: #00ccff !important;
                 font-weight: bold;
             }
 
             .form-control:focus {
-                border-color: #dc3545 !important;
+                border-color: #00ccff !important;
             }
 
             #error {
                 color: #ff0000;
                 font-weight: bold;
+            }
+
+            input[type=password], input[type=text] {
+                padding-right: 40px;
+            } 
+
+            #togglePassword {
+                position: relative;
+                cursor: pointer;
+            }
+
+            #eyeIcon {
+                position: absolute;
+                right: 15px;
+                margin-left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .fa-eye-slash:before {
+                content: "\f070";
+            }
+
+            .fa-eye:before {
+                content: "\f06e";
             }
 
         </style>
@@ -106,6 +132,30 @@
                         document.getElementById('password1').style.borderColor = '#ff0000';
 
                     break;
+
+                }
+
+            }
+
+            function togglePasswordVisibility() {
+
+                var password = document.getElementById('password');
+                var password1 = document.getElementById('password1');
+                var eyeIcon = document.getElementById('eyeIcon');
+
+                if (password.type == "password") {
+
+                    password.type = 'text';
+                    password1.type = 'text';
+                    eyeIcon.classList.remove('fa-eye');
+                    eyeIcon.classList.add('fa-eye-slash');
+
+                } else {
+
+                    password.type = 'password';
+                    password1.type = 'password';
+                    eyeIcon.classList.remove('fa-eye-slash');
+                    eyeIcon.classList.add('fa-eye');
 
                 }
 
@@ -165,8 +215,11 @@
 
                                 <div class="row">
 
-                                    <div class="form-group col">
+                                    <div class="form-group col d-flex">
                                         <input type="password" class="form-control rounded-left" id="password" name="password" placeholder="Password" required>
+                                        <span id="togglePassword" onclick="togglePasswordVisibility()">
+                                            <i class="fa fa-eye" class="eyeIcon" id="eyeIcon"></i>
+                                        </span>
                                     </div>
 
                                     <div class="form-group col">
@@ -213,10 +266,10 @@
             if (isset($_POST["invia"])) {
 
                 $invia = $_POST["invia"];
-                $username = $_POST["username"];
-                $email = $_POST["email"];
-                $name = $_POST["name"];
-                $surname = $_POST["surname"];
+                $username = addslashes(strtolower($_POST["username"]));
+                $email = addslashes($_POST["email"]);
+                $name = addslashes($_POST["name"]);
+                $surname = addslashes($_POST["surname"]);
                 $birthdate = $_POST["birthdate"];
                 $password = $_POST["password"];
                 $password1 = $_POST["password1"];
