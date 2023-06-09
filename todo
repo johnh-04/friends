@@ -15,3 +15,4 @@ cliccare prolo degli altri
 stampare sul server utenti che joinano e leftano
 vedere ultimo accesso
 modifica db
+messaggi riarrangiati in ordine (io, miccolis, io, miccolis -> io, io, miccolis, miccolis) ?? errore nel db, messaggi salvati in ordine diverso
