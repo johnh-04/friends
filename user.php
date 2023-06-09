@@ -110,8 +110,8 @@
                         <br>
 
                         <div class="profile-message-btn center-block text-center">
-                            <a href="./chat.php" class="btn btn-success">
-                                <i class="fa fa-envelope"></i> Send message <!--non se sei tu stesso -->
+                            <a href="./chat.php" style="text-decoration: none">
+                                <i class="fa fa-envelope"></i>&nbsp;Send message <!--non se sei tu stesso -->
                             </a>
                         </div>
 
@@ -119,7 +119,7 @@
 
                         <div class="profile-message-btn center-block text-center">
                             <a href="./login/logout.php" class="btn btn-danger">
-                                <i class="fa fa-sign-out"></i> Logout <!--non se sei tu stesso -->
+                                <i class="fa fa-sign-out"></i>&nbsp;Logout <!--non se sei tu stesso -->
                             </a>
                         </div>
 
@@ -132,7 +132,7 @@
                         <div class="profile-header">
                             <h3><span>User info</span></h3>
                             <button class="btn btn-primary edit-profile" onclick="document.getElementById('files').click();">
-                                <i class="fa fa-pencil-square fa-lg"></i> Edit profile
+                                <i class="fa fa-pencil-square fa-lg"></i>&nbsp;Edit profile
                                 <input type="file" id="files" accept="image/png" style="display: none;" onchange="input()">
                             </button>
                         </div>
@@ -193,12 +193,12 @@
                         <div class="tabs-wrapper profile-tabs">
 
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#tab-activity" data-toggle="tab">Activity</a></li>
-                                <li><a href="#tab-friends" data-toggle="tab">Friends</a></li>
+                                <!--<li><a href="#tab-activity" data-toggle="tab">Activity</a></li>-->
+                                <li class="active"><a href="#tab-friends" data-toggle="tab">Friends</a></li>
                             </ul>
 
                             <div class="tab-content">
-                                <div class="tab-pane fade in active" id="tab-activity">
+                                <!--<div class="tab-pane fade in active" id="tab-activity">
                                     <div class="table-responsive" style="overflow-y: scroll; height: 250px;">
                                         <table class="table">
                                             <tbody>
@@ -298,9 +298,9 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
+                                </div>-->
 
-                                <div class="tab-pane fade" id="tab-friends">
+                                <div class="tab-pane fade in active" id="tab-friends">
 
                                     <ul class="widget-users row" style="overflow-y: scroll; height: 250px;">
 
@@ -401,10 +401,6 @@
                                         </li>
 
                                     </ul>
-
-                                    <br>
-
-                                    <a href="#" class="btn btn-success pull-right">View all users</a>
 
                                 </div>
                             </div>

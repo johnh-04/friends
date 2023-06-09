@@ -254,8 +254,8 @@ h3>span {
 }
 
 .btn-primary {
-    background-color: #3fcfbb;
-    border-color: #2fb2a0;
+    background-color: #00ccff;
+    border-color: #00b7eb;
 }
 
 .btn-primary:hover,
@@ -263,13 +263,13 @@ h3>span {
 .btn-primary:active,
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
-    background-color: #38c2af;
-    border-color: #2aa493;
+    background-color: #00ccff;
+    border-color: #00b7eb;
 }
 
 .btn-success {
-    background-color: #8dc859;
-    border-color: #77ab49;
+    background-color: #00ccff;
+    border-color: #00b7eb;
 }
 
 .btn-success:hover,
@@ -277,7 +277,7 @@ h3>span {
 .btn-success:active,
 .btn-success.active,
 .open .dropdown-toggle.btn-success {
-    background-color: #77ab49;
+    background-color: #02bfee;
 }
 
 .btn-danger {
@@ -317,17 +317,17 @@ h3>span {
 
 .icon-box .btn:hover {
     background-color: #eee;
-    color: #2BB6A3;
+    color: #00ccff;
 }
 
 a {
-    color: #2bb6a3;
+    color: #00ccff;
     outline: none !important;
 }
 
 a:hover,
 a:focus {
-    color: #2bb6a3;
+    color: #00ccff;
 }
 
 
@@ -391,8 +391,8 @@ a:focus {
 
 .table thead>tr>th>a:hover span {
     text-decoration: none;
-    color: #2bb6a3;
-    border-color: #2bb6a3;
+    color: #00ccff;
+    border-color: #00ccff;
 }
 
 .table.table-hover tbody>tr>td {
@@ -470,7 +470,7 @@ a:focus {
 }
 
 .table-products .price>i {
-    color: #8dc859;
+    color: #00ccff;
 }
 
 .table-products .warranty {
@@ -610,17 +610,17 @@ a:focus {
 }
 
 .widget-users li>.details>.name>a:hover {
-    color: #2bb6a3;
+    color: #00ccff;
 }
 
 .widget-users li>.details>.time {
-    color: #2bb6a3;
+    color: #00ccff;
     font-size: 0.75em;
     padding-bottom: 7px;
 }
 
 .widget-users li>.details>.time.online {
-    color: #8dc859;
+    color: #00ccff;
 }
 
 
