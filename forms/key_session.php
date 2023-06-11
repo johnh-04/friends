@@ -126,15 +126,16 @@
             <?php endwhile; ?>
 
         </ul>
-    </div>
 
-    <div class="chat-message clearfix">
-        <div class="input-group mb-0">
-            <input type="text" class="form-control" id="msg" placeholder="Enter text here...">
-            <div class="input-group-prepend">
-                <button class="input-group-text" onclick="send()"><i class="fa fa-send"></i></button>
+        <div class="chat-message clearfix">
+            <div class="input-group mb-0">
+                <input type="text" class="form-control" id="msg" placeholder="Enter text here...">
+                <div class="input-group-prepend">
+                    <button class="input-group-text" onclick="send()"><i class="fa fa-send"></i></button>
+                </div>
             </div>
         </div>
+
     </div>
 
     <script> // to send message on Enter

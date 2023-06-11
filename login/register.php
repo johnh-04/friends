@@ -290,6 +290,7 @@
                             //controllo mail
                             //chars pass
                             //occhio pass
+                            //NO ' IN USERNAME
 
                             if (strlen($username) >= 3 and strlen($username) <= 15) {
 
