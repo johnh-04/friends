@@ -18,3 +18,4 @@ modifica db
 messaggi riarrangiati in ordine (io, miccolis, io, miccolis -> io, io, miccolis, miccolis) ?? errore nel db, messaggi salvati in ordine diverso
 aggiusta scelta chat css
 display fit per tutti gli schermi e tutte le pagine
+visualizzazione proprio profilo in index
