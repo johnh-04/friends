@@ -149,6 +149,15 @@ h3>span {
 }
 
 @media only screen and (max-width: 767px) {
+    body{
+        height: fit-content;
+    }
+    .main-box{
+        height: fit-content !important;
+    }
+    .clearfix{
+        height: fit-content !important;
+    }
     #user-profile .profile-user-info .profile-user-details .profile-user-details-label {
         float: none;
         position: relative;
@@ -545,6 +554,8 @@ a:focus {
 }
 
 @media only screen and (max-width: 440px) {
+
+
     .filter-block {
         float: none !important;
         clear: both

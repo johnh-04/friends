@@ -222,13 +222,22 @@ body {
 }
 
 @media only screen and (max-width: 767px) {
-    .chat-app .people-list {
+    
+    /*.chat-app .people-list {
         height: 465px;
         width: 100%;
         overflow-x: auto;
         background: #fff;
         left: -400px;
         display: none
+    }*/
+
+    .chat-history {
+        display: none; /*!!!*/
+    }
+    
+    .people-list {
+        width: 100% !important;
     }
 
     .chat-app .people-list.open {

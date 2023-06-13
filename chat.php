@@ -135,6 +135,9 @@
 
                     });
 
+                    document.getElementsByClassName("people-list").style.display = "none";
+                    document.getElementsByClassName("chat-history").style.display = "flex";
+
                 })
             });
 
@@ -242,7 +245,7 @@
                         <div class="chat" id="client">
 
                             <div class="chat-history">
-                                <div class="m-b-0 p-2" id="chat" style="height: 500px; text-align: center; align-items: center; vertical-align: middle;"><!-- applicare overflow al div e farlo funzionare con lo scroll -->
+                                <div class="m-b-0 p-2 imgflex" id="chat" style="height: 500px; text-align: center; align-items: center; vertical-align: middle; display: flex; flex-direction: column; justify-content: center; align-items: center;"><!-- applicare overflow al div e farlo funzionare con lo scroll -->
                                     <img src="assets/img/logo.png" width="250px">
                                 </div>
                             </div>
@@ -255,6 +258,19 @@
 
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+
+            /*$(document).ready(() => {
+                $(".list").click(function() {
+
+                    document.getElementsByClassName("people-list").style.display = "none";
+                    document.getElementsByClassName("chat-history").style.display = "flex";
+
+                });
+            });*/
+
+        </script>
         
     </body>
 
