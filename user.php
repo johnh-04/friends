@@ -84,13 +84,9 @@
 
                         <h2><?=$row["Username"]?></h2>
 
-                        <div class="profile-status">
-                            <i class="fa fa-check-circle"></i>Online
-                        </div>
-
                         <img src="<?=$row["Avatar"]?>" id="avatar" class="profile-img center-block" width="200px" height="200px">
 
-                        <div class="profile-label">
+                        <!--<div class="profile-label">
                             <span class="label label-danger">Admin</span>
                         </div>
 
@@ -101,10 +97,12 @@
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star-o"></i>
                             <span>Super User</span>
-                        </div>
+                        </div>-->
+
+                        <br>
 
                         <div class="profile-since">
-                            Member since: <?=$row["MemDate"]?>
+                            Member since: <b><?=$row["MemDate"]?></b>
                         </div>
 
                         <br>
@@ -300,105 +298,40 @@
                                     </div>
                                 </div>-->
 
+                                <?php
+
+                                    $sql = "SELECT DISTINCT * FROM friends INNER JOIN users ON friends.IdFriend1 = users.IdUser WHERE friends.IdFriend1 = $idUser OR friends.IdFriend2 = $idUser UNION SELECT DISTINCT * FROM friends INNER JOIN users ON friends.IdFriend2 = users.IdUser WHERE friends.IdFriend1 = $idUser OR friends.IdFriend2 = $idUser";
+                                    $res = $conn->query($sql);
+
+                                ?>
+
                                 <div class="tab-pane fade in active" id="tab-friends">
 
                                     <ul class="widget-users row" style="overflow-y: scroll; height: 250px;">
 
-                                        <li class="col-md-6">
-                                            <div class="img">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                    class="img-responsive" alt>
-                                            </div>
-                                            <div class="details">
-                                                <div class="name">
-                                                    <a href="#">John Doe </a>
-                                                </div>
-                                                <div class="time">
-                                                    <i class="fa fa-clock-o"></i> Last online: 5 minutes ago
-                                                </div>
-                                                <div class="type">
-                                                    <span class="label label-danger">Admin</span>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        <?php while ($row = $res->fetch_assoc()): 
+                        
+                                            if ($row["IdUser"] == $idUser): continue;
+                                            else:
+                                            
+                                        ?>
 
-                                        <li class="col-md-6">
-                                            <div class="img">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                    class="img-responsive" alt>
-                                            </div>
-                                            <div class="details">
-                                                <div class="name">
-                                                    <a href="#">Mila Kunis</a>
+                                            <li class="col-md-6">
+                                                <div class="img">
+                                                    <img src="<?=$row["Avatar"]?>"
+                                                        class="img-responsive" alt>
                                                 </div>
-                                                <div class="time online">
-                                                    <i class="fa fa-check-circle"></i> Online
+                                                <div class="details">
+                                                    <div class="name">
+                                                        <a href="#"><?=$row["Username"]?></a>
+                                                    </div>
+                                                    <div class="time">
+                                                        <span>Joined: <?=$row["MemDate"]?></span>
+                                                    </div>
                                                 </div>
-                                                <div class="type">
-                                                    <span class="label label-warning">Pending</span>
-                                                </div>
-                                            </div>
-                                        </li>
+                                            </li>
 
-                                        <li class="col-md-6">
-                                            <div class="img">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                    class="img-responsive" alt>
-                                            </div>
-                                            <div class="details">
-                                                <div class="name">
-                                                    <a href="#">Ryan Gossling</a>
-                                                </div>
-                                                <div class="time online">
-                                                    <i class="fa fa-check-circle"></i> Online
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li class="col-md-6">
-                                            <div class="img">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                    class="img-responsive" alt>
-                                            </div>
-                                            <div class="details">
-                                                <div class="name">
-                                                    <a href="#">Robert Downey Jr.</a>
-                                                </div>
-                                                <div class="time">
-                                                    <i class="fa fa-clock-o"></i> Last online: Thursday
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li class="col-md-6">
-                                            <div class="img">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                    class="img-responsive" alt>
-                                            </div>
-                                            <div class="details">
-                                                <div class="name">
-                                                    <a href="#">Emma Watson</a>
-                                                </div>
-                                                <div class="time">
-                                                    <i class="fa fa-clock-o"></i> Last online: 1 week ago
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li class="col-md-6">
-                                            <div class="img">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                    class="img-responsive" alt>
-                                            </div>
-                                            <div class="details">
-                                                <div class="name">
-                                                    <a href="#">George Clooney</a>
-                                                </div>
-                                                <div class="time">
-                                                    <i class="fa fa-clock-o"></i> Last online: 1 month ago
-                                                </div>
-                                            </div>
-                                        </li>
+                                        <?php endif; endwhile; ?>
 
                                     </ul>
 

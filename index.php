@@ -23,7 +23,7 @@
 
         $idUser = $row["IdUser"];
 
-        $sql = "SELECT * FROM users WHERE IdUser NOT IN (SELECT DISTINCT users.IdUser FROM friends INNER JOIN users ON friends.IdFriend1 = users.IdUser WHERE friends.IdFriend1 = $idUser OR friends.IdFriend2 = $idUser UNION SELECT DISTINCT users.IdUser FROM friends INNER JOIN users ON friends.IdFriend2 = users.IdUser WHERE friends.IdFriend1 = $idUser OR friends.IdFriend2 = $idUser)"; //id non contenuto in elenco amici + io (io non sono nell'elenco se non ho amicizie)
+        $sql = "SELECT * FROM users WHERE IdUser NOT IN (SELECT DISTINCT users.IdUser FROM friends INNER JOIN users ON friends.IdFriend1 = users.IdUser WHERE friends.IdFriend1 = $idUser OR friends.IdFriend2 = $idUser UNION SELECT DISTINCT users.IdUser FROM friends INNER JOIN users ON friends.IdFriend2 = users.IdUser WHERE friends.IdFriend1 = $idUser OR friends.IdFriend2 = $idUser)"; //elenco amici + io (io non sono nell'elenco se non ho amicizie)
         $res = $conn->query($sql);
 
     } else header("location: ./login/login.php");
@@ -44,6 +44,28 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+        <script>
+
+            function friend(id) {
+
+                var idUser = <?=$idUser?>;
+                
+                $.ajax({
+
+                    url: './forms/friend.php',
+                    type: 'POST',
+                    data: {idUser: idUser, idFriend: id},
+                    success: (data) => {
+                        console.log('success');
+                        location.href = './chat.php';
+                    }
+
+                });
+
+            }
+
+        </script>
+
     </head>
 
     <body>
@@ -56,6 +78,7 @@
                     else:
                     
                 ?>
+
                     <div class="col-md-4 mb-4">
                         <div class="card p-3 mb-2">
                             <div class="d-flex justify-content-between">
@@ -68,7 +91,7 @@
                             </div>
                             <div class="mt-3">
                                 <h5 class="lead"><?=$row["Name"]?> <?=$row["Surname"]?></h5>
-                                <button type="button" class="btn btn-primary mt-4" onclick="" style="float: right">Friend Request</button>
+                                <button type="button" id="<?=$row["IdUser"]?>" class="user btn btn-primary mt-4" onclick="friend(this.id)" style="float: right">Be a friend</button>
                             </div>
                         </div>
                     </div>

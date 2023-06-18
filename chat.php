@@ -219,14 +219,19 @@
 
                             <?php
 
-                                $sql = "SELECT * FROM users WHERE IdUser <> '$idUser'"; //amici dello user sessione
+                                $sql = "SELECT DISTINCT * FROM friends INNER JOIN users ON friends.IdFriend1 = users.IdUser WHERE friends.IdFriend1 = $idUser OR friends.IdFriend2 = $idUser UNION SELECT DISTINCT * FROM friends INNER JOIN users ON friends.IdFriend2 = users.IdUser WHERE friends.IdFriend1 = $idUser OR friends.IdFriend2 = $idUser"; //elenco amici + io (io non sono nell'elenco se non ho amicizie)
                                 $res = $conn->query($sql);
 
                             ?>
 
                             <ul class="list-unstyled chat-list mt-2 mb-0" id="users" style="overflow-y: scroll; height: 590px;">
 
-                                <?php while ($row = $res->fetch_assoc()): ?>
+                                <?php while ($row = $res->fetch_assoc()): 
+                        
+                                    if ($row["IdUser"] == $idUser): continue;
+                                    else:
+                                    
+                                ?>
 
                                     <li class="clearfix list" id="<?=$row["IdUser"]?>">
                                         <img src="<?=$row["Avatar"]?>" alt="avatar" width="45px" height="45px">
@@ -236,7 +241,7 @@
                                         </div>
                                     </li>
 
-                                <?php endwhile; ?>
+                                <?php endif; endwhile; ?>
 
                             </ul>
 
