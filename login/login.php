@@ -198,7 +198,7 @@
             if (isset($_POST["invia"])) {
 
                 $invia = $_POST["invia"];
-                $username = addslashes($_POST["username"]);
+                $username = addslashes(strtolower($_POST["username"]));
                 $password = addslashes($_POST["password"]);
 
                 $password = md5($password);
