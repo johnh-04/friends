@@ -91,7 +91,7 @@
                             </div>
                             <div class="mt-3">
                                 <h5 class="lead"><?=$row["Name"]?> <?=$row["Surname"]?></h5>
-                                <button type="button" id="<?=$row["IdUser"]?>" class="user btn btn-primary mt-4" onclick="friend(this.id)" style="float: right">Be a friend</button>
+                                <button type="button" id="<?=$row["IdUser"]?>" class="user btn btn-primary mt-4" onclick="friend(this.id)" style="float: right">Send message</button>
                             </div>
                         </div>
                     </div>
