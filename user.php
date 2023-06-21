@@ -5,6 +5,9 @@
 
     include './forms/config.php';
 
+    if (isset($_GET["IdUser"])) $idUser = $_GET["IdUser"];
+    else header("location: ./");
+
     if (!isset($_COOKIE["login"]) and !isset($_SESSION["login"])) header("location: ./login/login.php");
     else if (isset($_COOKIE["login"])) { //cookie -> session
 
@@ -20,7 +23,7 @@
     $res = $conn->query($sql);
     $row = $res->fetch_assoc();
 
-    $idUser = $row["IdUser"];
+    $idUserSession = $row["IdUser"];
 
 ?>
 
@@ -28,6 +31,16 @@
 <html lang="en">
 
     <head>
+
+        <?php 
+            
+            $sql = "SELECT * FROM users WHERE IdUser = '$idUser'";
+            $res = $conn->query($sql);
+            
+            if ($res->num_rows == 1) $row = $res->fetch_assoc();
+            else header("location: ./");
+
+        ?>
 
         <meta charset="utf-8">
         <title>Friends | <?=$row["Username"]?></title>
@@ -42,7 +55,7 @@
 
             function input() {
 
-                var idUser = <?=$idUser?>;
+                var idUser = <?=$idUserSession?>;
                 var img = document.getElementById('files');
                 var formdata = new FormData();
 
@@ -107,19 +120,23 @@
 
                         <br>
 
-                        <div class="profile-message-btn center-block text-center">
-                            <a href="./chat.php" style="text-decoration: none">
-                                <i class="fa fa-envelope"></i>&nbsp;Send message <!--non se sei tu stesso -->
-                            </a>
-                        </div>
+                        <?php if ($idUser == $idUserSession): ?>
 
-                        <br>
+                            <div class="profile-message-btn center-block text-center">
+                                <a href="./chat.php" style="text-decoration: none">
+                                    <i class="fa fa-envelope"></i>&nbsp;Send message
+                                </a>
+                            </div>
 
-                        <div class="profile-message-btn center-block text-center">
-                            <a href="./login/logout.php" class="btn btn-danger">
-                                <i class="fa fa-sign-out"></i>&nbsp;Logout <!--non se sei tu stesso -->
-                            </a>
-                        </div>
+                            <br>
+
+                            <div class="profile-message-btn center-block text-center">
+                                <a href="./login/logout.php" class="btn btn-danger">
+                                    <i class="fa fa-sign-out"></i>&nbsp;Logout
+                                </a>
+                            </div>
+
+                        <?php endif; ?>
 
                     </div>
                 </div>
@@ -129,10 +146,10 @@
 
                         <div class="profile-header">
                             <h3><span>User info</span></h3>
-                            <button class="btn btn-primary edit-profile" onclick="document.getElementById('files').click();">
-                                <i class="fa fa-pencil-square fa-lg"></i>&nbsp;Edit profile
+                            <?php if ($idUser == $idUserSession): ?><button class="btn btn-primary edit-profile" onclick="document.getElementById('files').click();"><?php endif; ?>
+                                <?php if ($idUser == $idUserSession): ?><i class="fa fa-pencil-square fa-lg"></i>&nbsp;Edit profile<?php endif; ?>
                                 <input type="file" id="files" accept="image/png" style="display: none;" onchange="input()">
-                            </button>
+                            <?php if ($idUser == $idUserSession): ?></button><?php endif; ?>
                         </div>
 
                         <div class="row profile-user-info">
@@ -318,12 +335,11 @@
 
                                             <li class="col-md-6">
                                                 <div class="img">
-                                                    <img src="<?=$row["Avatar"]?>"
-                                                        class="img-responsive" alt>
+                                                    <img src="<?=$row["Avatar"]?>" width="50px" height="50px" class="">
                                                 </div>
                                                 <div class="details">
                                                     <div class="name">
-                                                        <a href="#"><?=$row["Username"]?></a>
+                                                        <a href="user.php?IdUser=<?=$row["IdUser"]?>" style="text-decoration: none; color: #000"><?=$row["Username"]?></a>
                                                     </div>
                                                     <div class="time">
                                                         <span>Joined: <?=$row["MemDate"]?></span>
