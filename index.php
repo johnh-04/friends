@@ -70,6 +70,42 @@
 
     <body>
 
+        <header class="lead-demo shadow">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white">
+                <div class="container">
+                    <a class="navbar-brand" href="#"><img src="assets/images/logo.svg" alt="lead-ui-kit logo"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#leadUIDemoNav-1"
+                        aria-controls="leadUIDemoNav-1" aria-expanded="false" aria-label="Toggle navigation">
+                        <i data-feather="menu"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="leadUIDemoNav-1">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">Overview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Pages</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Resources</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Docs</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sign in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#!" class="btn btn-info">Buy Now</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
         <div class="container mt-5 mb-3">
             <div class="row">
                 <?php while ($row = $res->fetch_assoc()): 
@@ -85,13 +121,14 @@
                                 <div class="d-flex flex-row align-items-center clearfix">
                                     <img src="<?=$row["Avatar"]?>" alt="avatar" width="45px" height="45px" style="border-radius: 50%">
                                     <div class="ml-2 c-details">
-                                        <h6 class="mb-0"><?=$row["Username"]?></h6><span>Joined: <?=$row["MemDate"]?></span>
+                                        <h6 class="mb-0"><a href="user.php?IdUser=<?=$row["IdUser"]?>" style="text-decoration: none; color: #000"><?=$row["Username"]?></a></h6>
+                                        <span>Joined: <b><?=$row["MemDate"]?></b></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-3">
                                 <h5 class="lead"><?=$row["Name"]?> <?=$row["Surname"]?></h5>
-                                <button type="button" id="<?=$row["IdUser"]?>" class="user btn btn-primary mt-4" onclick="friend(this.id)" style="float: right">Send message</button>
+                                <button type="button" id="<?=$row["IdUser"]?>" class="user btn mt-4" style="background-color: #5d3fff; border-color: #5d3fff; color: #fff" onclick="friend(this.id)" style="float: right">Send message</button>
                             </div>
                         </div>
                     </div>

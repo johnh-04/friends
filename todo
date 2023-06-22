@@ -12,7 +12,7 @@ capire perché dove è specificato il text-align. CONTROLLA POSIZIONE MESSAGGI E
 orario a destra del messaggio! (mettere fixed)
 
 stampare sul server utenti che joinano e leftano, vedere ultimo accesso (?)
-mettere lista friends nel container per non farli uscire
+mettere lista friends nel container per non farli uscire (user.php)
 
 /* messaggi riarrangiati in ordine (io, miccolis, io, miccolis -> io, io, miccolis, miccolis) ?? errore nel db, messaggi salvati in ordine diverso */
 /* funziona solo su chrome (su firefox funziona adesso (non so perché)) */

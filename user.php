@@ -146,10 +146,12 @@
 
                         <div class="profile-header">
                             <h3><span>User info</span></h3>
-                            <?php if ($idUser == $idUserSession): ?><button class="btn btn-primary edit-profile" onclick="document.getElementById('files').click();"><?php endif; ?>
-                                <?php if ($idUser == $idUserSession): ?><i class="fa fa-pencil-square fa-lg"></i>&nbsp;Edit profile<?php endif; ?>
-                                <input type="file" id="files" accept="image/png" style="display: none;" onchange="input()">
-                            <?php if ($idUser == $idUserSession): ?></button><?php endif; ?>
+                            <?php if ($idUser == $idUserSession): ?>
+                                <button class="btn btn-primary edit-profile" onclick="document.getElementById('files').click();">
+                                    <i class="fa fa-pencil-square fa-lg"></i>&nbsp;Edit profile
+                                    <input type="file" id="files" accept="image/png" style="display: none;" onchange="input()">
+                                </button>
+                            <?php endif; ?>
                         </div>
 
                         <div class="row profile-user-info">
