@@ -3,9 +3,8 @@ messaggi criptati (rsa), key session
 routing composer, 404
 funzioni es6
 revisione codice, modifica db
-display fit per tutti gli schermi e tutte le pagine
 visualizzazione proprio profilo in index
-aggiusta scelta chat css per mobile
+aggiusta scelta chat css per mobile. display fit per tutti gli schermi e tutte le pagine
 
 capire perché dove è specificato il text-align. CONTROLLA POSIZIONE MESSAGGI E TESTO
 
@@ -13,10 +12,7 @@ orario a destra del messaggio! (mettere fixed)
 
 stampare sul server utenti che joinano e leftano, vedere ultimo accesso (?)
 mettere lista friends nel container per non farli uscire (user.php)
-chat history piena di link, togli link dalla chat
-data
-
-rivedere messaggi criptati
+data odierna
 
 telefono chat work in progress!
 
