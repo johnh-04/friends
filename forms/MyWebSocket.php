@@ -3,6 +3,8 @@
     require '../vendor/autoload.php';
     include 'config.php';
 
+    session_start();
+
     use Ratchet\MessageComponentInterface;
     use Ratchet\ConnectionInterface;
 
@@ -50,6 +52,16 @@
                     $room = mysqli_escape_string($conn, $data['room']);
                     $message = mysqli_escape_string($conn, $data['msg']);
                     $time = mysqli_escape_string($conn, date('Y-m-d H:i:s', $data['time'] / 1000));
+
+                    $username = $_SESSION["username"];
+
+                    $sql = "SELECT * FROM users WHERE Username = '$username'";
+                    $res = $conn->query($sql);
+                    $row = $res->fetch_assoc();
+
+                    $idUserSession = $row["IdUser"];
+
+                    if ($idUser !== $idUserSession) return; //se qualcuno cambia id, lo controllo da qui.
 
                     $sql = "INSERT INTO messages (IdSender, IdRoom, Message, Time, Status) VALUES ('$idUser', '$room', '$message', '$time' , 1)";
                     $res = $conn->query($sql);

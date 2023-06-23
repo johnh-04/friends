@@ -8,8 +8,8 @@
     if (isset($_COOKIE["login"])) { //cookie -> session
 
         $_SESSION["login"] = 2;
-        $_SESSION["username"] = $_COOKIE["username"];
-        $_SESSION["password"] = $_COOKIE["password"];
+        $_SESSION["username"] = json_decode(base64_decode($_COOKIE["user"]))->username;
+        $_SESSION["password"] = json_decode(base64_decode($_COOKIE["user"]))->password;
 
     }
 
@@ -39,7 +39,6 @@
         <title>Friends | Home</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="assets/css/index.css">
         <link rel="icon" href="assets/img/favicon.png">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -70,35 +69,29 @@
 
     <body>
 
-        <header class="lead-demo shadow">
+        <header class="shadow">
             <nav class="navbar navbar-expand-lg navbar-light bg-white">
                 <div class="container">
-                    <a class="navbar-brand" href="#"><img src="assets/images/logo.svg" alt="lead-ui-kit logo"></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#leadUIDemoNav-1"
-                        aria-controls="leadUIDemoNav-1" aria-expanded="false" aria-label="Toggle navigation">
-                        <i data-feather="menu"></i>
+                    <a class="navbar-brand" href=""><img src="assets/img/friends.png" width="180px" alt="lead-ui-kit logo"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#leadUIDemoNav-1" aria-controls="leadUIDemoNav-1" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-bars"></i>
                     </button>
-                    <div class="collapse navbar-collapse" id="leadUIDemoNav-1">
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.html">Overview</a>
+                    <div class="collapse navbar-collapse" id="leadUIDemoNav-1" style="flex-direction: row-reverse;">
+                        <ul class="navbar-nav" style="float: right; flex-direction: row !important;">
+                            <li class="nav-item mr-2">
+                                <a href="./chat.php" class="btn btn-success">
+                                    <i class="fa fa-comment"></i>&nbsp;Chat
+                                </a>
+                            </li>
+                            <li class="nav-item mr-2">
+                                <a href="./user.php?IdUser=<?=$idUser?>" class="btn btn-primary">
+                                    <i class="fa fa-user"></i>&nbsp;Profile
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Pages</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Resources</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Docs</a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Sign in</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#!" class="btn btn-info">Buy Now</a>
+                                <a href="./login/logout.php" class="btn btn-danger">
+                                    <i class="fa fa-sign-out"></i>&nbsp;Logout
+                                </a>
                             </li>
                         </ul>
                     </div>

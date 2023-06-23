@@ -79,7 +79,7 @@
                     <img src="<?=$row["Avatar"]?>" alt="avatar">
                 </a>
                 <div class="chat-about">
-                    <h6 class="m-b-0"><a href="user.php?IdUser=<?=$idUser2?>" style="text-decoration: none; color: #000" target="_blank"><?=$row["Username"]?></h6>
+                    <h6 class="m-b-0"><a href="user.php?IdUser=<?=$idUser2?>" style="text-decoration: none; color: #000" target="_blank"><?=$row["Username"]?></a></h6>
                     <small>Last seen: 2 hours ago</small>
                 </div>
                 <input type="hidden" id="idRoom" value="<?=$idRoom?>">

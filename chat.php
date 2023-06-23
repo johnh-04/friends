@@ -8,8 +8,8 @@
     if (isset($_COOKIE["login"])) { //cookie -> session
 
         $_SESSION["login"] = 2;
-        $_SESSION["username"] = $_COOKIE["username"];
-        $_SESSION["password"] = $_COOKIE["password"];
+        $_SESSION["username"] = json_decode(base64_decode($_COOKIE["user"]))->username;
+        $_SESSION["password"] = json_decode(base64_decode($_COOKIE["user"]))->password;
 
     }
 
@@ -203,7 +203,7 @@
                                         <div class="status"><a href="user.php?IdUser=<?=$idUser?>" style="text-decoration: none; color: #999" target="_blank"><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</a></div>
                                     </div>
                                     <div class="col-4 hidden-sm text-right">
-                                        <a href="./" class="btn btn-outline-secondary"><i class="fa fa-users"></i></a>
+                                        <a href="./" class="btn btn-outline-secondary"><i class="fa fa-home"></i></a> <!--users-->
                                     </div>
                                 </div>
                             </div>

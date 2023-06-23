@@ -11,9 +11,7 @@
 
     $loop = Loop::get();
 
-    $socket = new SocketServer($argv[1].":7777");
-
-    $_SESSION['RUN'] = TRUE;
+    $socket = new SocketServer($argv[1].":7777"); //nuova socket con ip (passato lda linea di comando) e porta. argv: parametri da linea di comando
 
     echo "Launching on " . $argv[1] . ":7777 socket...\n";
 

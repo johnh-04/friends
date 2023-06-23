@@ -14,7 +14,7 @@
 
     <head>
 
-        <title>Sign Up</title>
+        <title>Friends | Sign Up</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
@@ -289,42 +289,46 @@
 
                             //controllo mail
                             //chars pass
-                            //occhio pass
-                            //NO ' IN USERNAME
 
                             if (strlen($username) >= 3 and strlen($username) <= 15) {
 
                                 if (strlen($password) >= 7 and strlen($password) <= 25) {
 
-                                    $password = md5($password);
+                                    if (!preg_match("/[\"'£%#-§ùç*\()\[\]{}<>ò^ì+\/\|=]/", $password) and !preg_match("/[\"'£%#-§ùç*\()\[\]{}<>ò^ì+\/\|!?=]/", $username)) {
+                                        
+                                        $password = md5($password);
 
-                                    $sql = "INSERT INTO users (Username, Email, Password, Name, Surname, BirthDate, MemDate) values ('$username', '$email', '$password', '$name', '$surname', '$birthdate', '$now')";
-                                    $res = $conn->query($sql);
+                                        $sql = "INSERT INTO users (Username, Email, Password, Name, Surname, BirthDate, MemDate) values ('$username', '$email', '$password', '$name', '$surname', '$birthdate', '$now')";
+                                        $res = $conn->query($sql);
+                                        
+                                        if ($res) {
+
+                                            if (isset($_POST["check"])) {
+
+                                                $cookie = base64_encode(json_encode(array("username" => $_POST["username"], "password" => $password)));
+
+                                                setcookie("user", $cookie, time() + 2592000, "/friends"); //30 days
+                                                //setcookie("password", $password, time() + 2592000, "/friends"); //30 days
+                                                setcookie("login", 1, time() + 2592000, "/friends"); //30 days
+
+                                            } else {
+
+                                                //session_start();
+                                                $_SESSION["login"] = 1;
+                                                $_SESSION["username"] = $username;
+                                                $_SESSION["password"] = $password;
+
+                                            }
+
+                                            header("location: ../user.php");
+                                                
+                                        } else echo("<script>msg_error('Error', 1)</script>");
                                     
-                                    if ($res) {
+                                    } else echo("<script>msg_error('Special characters not allowed', 4)</script>");
 
-                                        if (isset($_POST["check"])) {
+                                } else echo("<script>msg_error('The password must contain between 7 and 25 characters', 1)</script>");
 
-                                            setcookie("username", $_POST["username"], time() + 2592000, "/friends"); //30 days
-                                            setcookie("password", $_POST["password"], time() + 2592000, "/friends"); //30 days
-                                            setcookie("login", 1, time() + 2592000, "/friends"); //30 days
-
-                                        } else {
-
-                                            //session_start();
-                                            $_SESSION["login"] = 1;
-                                            $_SESSION["username"] = $username;
-                                            $_SESSION["password"] = $password;
-
-                                        }
-
-                                        header("location: ../user.php");
-                                            
-                                    } else echo("<script>msg_error('Error', 1)</script>");
-
-                                } echo("<script>msg_error('The password must contain between 7 and 25 characters', 1)</script>");
-
-                            } echo("<script>msg_error('The username must contain between 3 and 15 characters', 2)</script>");
+                            } else echo("<script>msg_error('The username must contain between 3 and 15 characters', 2)</script>");
 
                         } else echo("<script>msg_error('Email already exists', 3);</script>");
 

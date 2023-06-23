@@ -12,8 +12,8 @@
     else if (isset($_COOKIE["login"])) { //cookie -> session
 
         $_SESSION["login"] = 2;
-        $_SESSION["username"] = $_COOKIE["username"];
-        $_SESSION["password"] = $_COOKIE["password"];
+        $_SESSION["username"] = json_decode(base64_decode($_COOKIE["user"]))->username;
+        $_SESSION["password"] = json_decode(base64_decode($_COOKIE["user"]))->password;
 
     }
 

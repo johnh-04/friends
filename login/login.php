@@ -14,7 +14,7 @@
 
     <head>
 
-        <title>Sign In</title>
+        <title>Friends | Sign In</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
@@ -203,37 +203,39 @@
 
                 $password = md5($password);
 
-                $sql = "SELECT * FROM users WHERE (Username = '$username' and Password = '$password')";
-                $res = $conn->query($sql);
-            
-                if ($res->num_rows == 1) {
+                if (!preg_match("/[\"'£%#-§ùç*\()\[\]{}<>ò^ì+\/\|=]/", $password) and !preg_match("/[\"'£%#-§ùç*\()\[\]{}<>ò^ì+\/\|!?=]/", $username)) {
 
-                    $row = $res->fetch_assoc();
-
-                    if (isset($_POST["check"])) {
-
-                        setcookie("username", $_POST["username"], time() + 2592000, "/friends"); //30 days
-                        setcookie("password", $password, time() + 2592000, "/friends"); //30 days
-                        setcookie("login", 1, time() + 2592000, "/friends"); //30 days
-
-                    } else {
-
-                        //session_start();
-                        $_SESSION["login"] = 1;
-                        $_SESSION["username"] = $username;
-                        $_SESSION["password"] = $password;
-
-                    }
-
-                    header("location: ../user.php");
-                    
-                } else {
-                    
-                    echo("<script>error();</script>");
-
-                }
+                    $sql = "SELECT * FROM users WHERE (Username = '$username' and Password = '$password')";
+                    $res = $conn->query($sql);
                 
-                $conn->close();
+                    if ($res->num_rows == 1) {
+
+                        $row = $res->fetch_assoc();
+
+                        if (isset($_POST["check"])) {
+
+                            $cookie = base64_encode(json_encode(array("username" => $_POST["username"], "password" => $password)));
+
+                            setcookie("user", $cookie, time() + 2592000, "/friends"); //30 days
+                            //setcookie("password", $password, time() + 2592000, "/friends"); //30 days
+                            setcookie("login", 1, time() + 2592000, "/friends"); //30 days
+
+                        } else {
+
+                            //session_start();
+                            $_SESSION["login"] = 1;
+                            $_SESSION["username"] = $username;
+                            $_SESSION["password"] = $password;
+
+                        }
+
+                        header("location: ../user.php");
+                        
+                    } else echo("<script>error();</script>");
+                    
+                    $conn->close();
+
+                } else echo("<script>error()</script>");
 
             }
 
