@@ -203,7 +203,7 @@
 
                 $password = md5($password);
 
-                if (!preg_match("/[\"'£%#-§ùç*\()\[\]{}<>ò^ì+\/\|=]/", $password) and !preg_match("/[\"'£%#-§ùç*\()\[\]{}<>ò^ì+\/\|!?=]/", $username)) {
+                if (!(!preg_match("/[\"'£%#-§ùç*\()\[\]{}<>ò^ì+\/\|=]/", $password) and !preg_match("/[\"'£%#-§ùç*\()\[\]{}<>ò^ì+\/\|!?=]/", $username))) {
 
                     $sql = "SELECT * FROM users WHERE (Username = '$username' and Password = '$password')";
                     $res = $conn->query($sql);

@@ -294,7 +294,7 @@
 
                                 if (strlen($password) >= 7 and strlen($password) <= 25) {
 
-                                    if (!preg_match("/[\"'£%#-§ùç*\()\[\]{}<>ò^ì+\/\|=]/", $password) and !preg_match("/[\"'£%#-§ùç*\()\[\]{}<>ò^ì+\/\|!?=]/", $username)) {
+                                    if (!(!preg_match("/[\"'£%#-§ùç*\()\[\]{}<>ò^ì+\/\|=]/", $password) and !preg_match("/[\"'£%#-§ùç*\()\[\]{}<>ò^ì+\/\|!?=]/", $username))) {
                                         
                                         $password = md5($password);
 
