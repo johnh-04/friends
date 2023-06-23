@@ -23,8 +23,11 @@
         $targetFile = $targetDir . str_pad(random_int(2**28, 2**33), 10, '0', STR_PAD_LEFT) . "." . explode("/", $_FILES["img"]["type"])[1];
         
         move_uploaded_file($img, $targetFile);
+        
         try {
+
             unlink($targetDir . $old_picture);
+            
         } catch(Exception) {}
 
         $targetFile = substr($targetFile, 3);
