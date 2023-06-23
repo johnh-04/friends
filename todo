@@ -14,6 +14,8 @@ stampare sul server utenti che joinano e leftano, vedere ultimo accesso (?)
 mettere lista friends nel container per non farli uscire (user.php)
 data odierna
 
+Veron1c@ --errore password nel login
+
 telefono chat work in progress!
 
 /* messaggi riarrangiati in ordine (io, miccolis, io, miccolis -> io, io, miccolis, miccolis) ?? errore nel db, messaggi salvati in ordine diverso */

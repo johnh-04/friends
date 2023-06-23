@@ -271,8 +271,8 @@
                 $name = addslashes($_POST["name"]);
                 $surname = addslashes($_POST["surname"]);
                 $birthdate = $_POST["birthdate"];
-                $password = $_POST["password"];
-                $password1 = $_POST["password1"];
+                $password = addslashes($_POST["password"]);
+                $password1 = addslashes($_POST["password1"]);
                 $now = date('Y-m-d');
 
                 if ($password === $password1) {
