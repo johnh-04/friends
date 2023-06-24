@@ -122,9 +122,17 @@
 
                         <?php if ($idUser == $idUserSession): ?>
 
-                            <div class="profile-message-btn center-block text-center">
-                                <a href="./chat.php" style="text-decoration: none">
-                                    <i class="fa fa-envelope"></i>&nbsp;Send message
+                            <div class="center-block text-center">
+                                <a href="./" class="btn btn-info">
+                                    <i class="fa fa-home"></i>&nbsp;Home
+                                </a>
+                            </div>
+
+                            <br>
+
+                            <div class="center-block text-center">
+                                <a href="./chat.php" class="btn btn-primary">
+                                    <i class="fa fa-comment"></i>&nbsp;Send message
                                 </a>
                             </div>
 

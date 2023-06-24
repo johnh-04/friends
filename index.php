@@ -79,13 +79,13 @@
                     <div class="collapse navbar-collapse" id="leadUIDemoNav-1" style="flex-direction: row-reverse;">
                         <ul class="navbar-nav" style="float: right; flex-direction: row !important;">
                             <li class="nav-item mr-2">
-                                <a href="./chat.php" class="btn btn-success">
-                                    <i class="fa fa-comment"></i>&nbsp;Chat
+                                <a href="./user.php?IdUser=<?=$idUser?>" class="btn btn-primary">
+                                    <i class="fa fa-user"></i>&nbsp;&nbsp;<?=$username?>
                                 </a>
                             </li>
                             <li class="nav-item mr-2">
-                                <a href="./user.php?IdUser=<?=$idUser?>" class="btn btn-primary">
-                                    <i class="fa fa-user"></i>&nbsp;Profile
+                                <a href="./chat.php" class="btn btn-success">
+                                    <i class="fa fa-comment"></i>&nbsp;Chat
                                 </a>
                             </li>
                             <li class="nav-item">

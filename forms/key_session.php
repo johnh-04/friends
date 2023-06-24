@@ -76,7 +76,7 @@
 
             <div class="col-lg-6">
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                    <img src="<?=$row["Avatar"]?>" alt="avatar">
+                    <img src="<?=$row["Avatar"]?>" width="50px" height="40px" alt="avatar">
                 </a>
                 <div class="chat-about">
                     <h6 class="m-b-0"><a href="user.php?IdUser=<?=$idUser2?>" style="text-decoration: none; color: #000" target="_blank"><?=$row["Username"]?></a></h6>
