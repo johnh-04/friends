@@ -99,6 +99,8 @@
         <ul class="m-b-0 p-2" id="chat" style="overflow-y: scroll; height: 500px;"> <!-- applicare overflow al div e farlo funzionare con lo scroll -->
 
             <?php
+
+                $title = null;
                 
                 while ($row = $res->fetch_assoc()):
 
@@ -114,12 +116,27 @@
 
                     $time = $dateTime->format('H:i');
 
+                    if ($title === null or $title !== date("F j, Y", strtotime($row["Time"]))) {
+
+                        $title = date("F j, Y", strtotime($row["Time"]));
+                        
+                        echo 
+                            "<br>
+                            <li class=\"clearfix\">
+                                <div class=\"justify-content-center d-flex\">
+                                    <span>$title</span>
+                                </div>
+                            </li>
+                            <br>";
+
+                    }
+
             ?>
 
                     <li class="clearfix">
                         <div class="message other-message <?php if ($idSender == $idUser1) echo "float-right"; else echo "float-left"?>">
                             <span><?=$row["Message"]?></span>
-                            <sub class="message-data-time"><?=$time?></sub>
+                            <sub class="message-data-time" style="/*float: right;*/"><?=$time?></sub>
                         </div>
                     </li>
 

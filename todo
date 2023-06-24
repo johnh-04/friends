@@ -11,8 +11,8 @@ capire perché dove è specificato il text-align. CONTROLLA POSIZIONE MESSAGGI E
 orario a destra del messaggio! (mettere fixed)
 
 stampare sul server utenti che joinano e leftano, vedere ultimo accesso (?)
-mettere lista friends nel container per non farli uscire (user.php)
-data odierna in chat
+
+mettere lista friends nel container per non farli uscire (user.php) --fatto?
 
 Veron1c@ --errore password nel login. errore se uso le sessioni in websocket.
 

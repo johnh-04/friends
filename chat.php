@@ -49,6 +49,7 @@
 
             var socket = new WebSocket('ws://<?=$_SERVER["SERVER_NAME"]?>:7777/chat');
             var idUser = <?=$idUser?>;
+            var title = null;
 
             function selectRoom(room) {
 
@@ -91,6 +92,29 @@
 
                     if (user == idUser) position = "float-right"; //float right/left
                     else position = "float-left";
+
+                    var date = new Date(time);
+                    var options = { month: 'long', day: 'numeric', year: 'numeric' };
+
+                    if (title === null || title !== date.toLocaleDateString('en-US', options)) {
+
+                        title = date.toLocaleDateString('en-US', options);
+
+                        //$title = date("F j, Y", strtotime($row["Time"]));
+
+                        $("#chat").append(`
+                            
+                            <br>
+                            <li class=\"clearfix\">
+                                <div class=\"justify-content-center d-flex\">
+                                    <span>${title}</span>
+                                </div>
+                            </li>
+                            <br>;
+
+                        `);
+
+                    }
 
                     $("#chat").append(`
 
