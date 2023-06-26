@@ -27,8 +27,6 @@
 
     } else header("location: ./login/login.php");
 
-    //$idUtente = $_GET["idUtente"];
-
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +50,8 @@
 
             function selectRoom(room) {
 
-                var title = null;
+                var title = document.querySelectorAll('.message')[document.querySelectorAll('.message').length - 1].id ?? null;
+                console.log(title)
 
                 if (socket.readyState === WebSocket.OPEN) socket.close();
 
@@ -79,7 +78,6 @@
                     //var data = event.data;
                     //console.log(data); //per un singolo messaggio (stringa)
 
-                    //console.log(event.data)
                     var message = JSON.parse(event.data);
 
                     var user = message.idUser;
@@ -91,7 +89,7 @@
 
                     var position = "";
 
-                    if (user == idUser) position = "float-right"; //float right/left
+                    if (user == idUser) position = "float-right";
                     else position = "float-left";
 
                     var date = new Date(time);
@@ -100,8 +98,6 @@
                     if (title === null || title !== date.toLocaleDateString('en-US', options)) {
 
                         title = date.toLocaleDateString('en-US', options);
-
-                        //$title = date("F j, Y", strtotime($row["Time"]));
 
                         $("#chat").append(`
                             
@@ -120,7 +116,7 @@
                     $("#chat").append(`
 
                         <li class="clearfix">
-                            <div class="message other-message ${position}">
+                            <div class="message other-message ${position}" id="${date.toLocaleDateString('en-US', options)}">
                                 <span>${messageText}</span>
                                 <sub class="message-data-time">${new Date(parseInt(time)).toTimeString().substr(0, 5)}</sub>
                             </div>
@@ -160,7 +156,7 @@
 
                     });
 
-                    //document.getElementsByClassName("people-list").style.display = "none";
+                    //document.getElementsByClassName("people-list").style.display = "none"; --mobile
                     //document.getElementsByClassName("chat-history").style.display = "flex";
 
                 })
@@ -187,7 +183,7 @@
 
             function send() {
 
-                var room = $("#idRoom").val(); //togliere key da input hidden e mettere in sessione
+                var room = $("#idRoom").val();
                 var msg = $("#msg").val();
 
                 if (msg !== '') {
@@ -232,13 +228,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!--<div class="input-group mb-4">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
-                                </div>
-                            </div>-->
                             
                             <hr>
 
@@ -286,21 +275,7 @@
             </div>
         </div>
 
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
-
-        <script>
-
-            /*$(document).ready(() => {
-                $(".list").click(function() {
-
-                    document.getElementsByClassName("people-list").style.display = "none";
-                    document.getElementsByClassName("chat-history").style.display = "flex";
-
-                });
-            });*/
-
-        </script>
         
     </body>
 

@@ -29,10 +29,6 @@
 
             body {
                 background-color: #efefef;
-                /*background-image: url("../assets/img/slide/slide-3.jpg");
-                overflow: hidden;
-                height: 600px;
-                width: 100vw;*/
             }
 
             .login-wrap {
@@ -157,7 +153,6 @@
                                     <span id="togglePassword" onclick="togglePasswordVisibility()">
                                         <i class="fa fa-eye" class="eyeIcon" id="eyeIcon"></i>
                                     </span>
-                                    <!--<input type="checkbox" onclick="alert('u')" style="border-color: white;"><i class="bi bi-eye" id="togglePassword" style="margin-left: -30px; margin-top: 13px; cursor: pointer;"></i>-->
                                 </div>
 
                                 <div class="form-group text-center" id="error"></div>
@@ -174,10 +169,6 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
-
-                                    <!--<div class="w-50 text-md-right">
-                                        <a href="#">Password dimenticata</a>
-                                    </div>-->
                                     
                                 </div>
 
@@ -217,12 +208,10 @@
                             $cookie = base64_encode(json_encode(array("username" => $_POST["username"], "password" => $password)));
 
                             setcookie("user", $cookie, time() + 2592000, "/friends"); //30 days
-                            //setcookie("password", $password, time() + 2592000, "/friends"); //30 days
                             setcookie("login", 1, time() + 2592000, "/friends"); //30 days
 
                         } else {
 
-                            //session_start();
                             $_SESSION["login"] = 1;
                             $_SESSION["username"] = $username;
                             $_SESSION["password"] = $password;

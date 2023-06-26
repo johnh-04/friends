@@ -61,7 +61,7 @@
 
                     $idUserSession = $row["IdUser"];
 
-                    if ($idUser !== $idUserSession) return; //se qualcuno cambia id, lo controllo da qui.*/
+                    if ($idUser !== $idUserSession) return; --controllo sicurezza se qualcuno cambia id, session nella classe*/
 
                     $sql = "INSERT INTO messages (IdSender, IdRoom, Message, Time, Status) VALUES ('$idUser', '$room', '$message', '$time' , 1)";
                     $res = $conn->query($sql);
@@ -73,10 +73,6 @@
                     /*foreach ($this->clients as $client) {
                         $client->send($msg); //send in broadcast to all clients connected.
                     }*/
-
-                    //$msg = json_encode(array('idUser' => $idUser, 'room' => $room, 'message' => $message, 'time' => $time));
-
-                    //echo $msg;
 
                     $this->sendMessage($from, $room, $msg, null);
             
@@ -91,13 +87,7 @@
         public function onClose(ConnectionInterface $conn) {
 
             $this->clients->detach($conn);
-            //utente offline
-
-            /*foreach ($this->rooms as &$room) {
-                if (($key = array_search($conn, $room)) !== false) {
-                    unset($room[$key]);
-                }
-            }*/
+            //utente offline...
 
             //$this->leaveRoom($from, $room); CHIUDI CONNESSIONE
 
@@ -112,30 +102,17 @@
 
         public function joinRoom(ConnectionInterface $conn, $room) {
 
-            // Create the room if it doesn't exist
+            //crea room se non esiste
             if (!isset($this->rooms[$room])) {
                 $this->rooms[$room] = new SplObjectStorage();
             }
 
-            // Add the client to the room
+            //aggiunta user alla room
             $this->rooms[$room]->attach($conn);
     
             echo "Client ({$conn->resourceId}) joined room: {$room}\n";
 
         }
-
-        /*public function leaveRoom(ConnectionInterface $conn, $room) {
-            // Check if the room exists
-            if (isset($this->rooms[$room])) {
-                // Remove the client from the room
-                $this->rooms[$room]->detach($conn);
-
-                // If the room is empty, remove it
-                if ($this->rooms[$room]->count() === 0) {
-                    unset($this->rooms[$room]);
-                }
-            }
-        }*/
 
         protected function sendMessage(ConnectionInterface $from, $room, $msg, $toUser) {
 
@@ -143,13 +120,8 @@
 
                 foreach ($this->rooms[$room] as $client) {
 
-                    // Broadcast the message to every user connected to the room
+                    //Broadcast room
                     $client->send($msg);
-
-                    // Send a private message to the specified user
-                    /*if ($client !== $from && $client->resourceId == $toUser) {
-                        $client->send($message);
-                    }*/
 
                 }
 

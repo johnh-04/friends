@@ -24,7 +24,7 @@
 
             $check = false;
             $sql = "SELECT * FROM rooms";
-            $res = $conn->query($sql); //aggiorna lista chiavi
+            $res = $conn->query($sql); //lista chiavi nel db
             $key = uniqid(); //genera nuova chiave
 
             while ($row = $res->fetch_assoc()) {
@@ -80,7 +80,7 @@
                 </a>
                 <div class="chat-about">
                     <h6 class="m-b-0"><a href="user.php?IdUser=<?=$idUser2?>" style="text-decoration: none; color: #000" target="_blank"><?=$row["Username"]?></a></h6>
-                    <small>Last seen: 2 hours ago</small>
+                    <small><?=$row["Name"]?> <?=$row["Surname"]?></small><!--last seen-->
                 </div>
                 <input type="hidden" id="idRoom" value="<?=$idRoom?>">
             </div>
@@ -96,7 +96,7 @@
     ?>
 
     <div class="chat-history">
-        <ul class="m-b-0 p-2" id="chat" style="overflow-y: scroll; height: 500px;"> <!-- applicare overflow al div e farlo funzionare con lo scroll -->
+        <ul class="m-b-0 p-2" id="chat" style="overflow-y: scroll; height: 500px;">
 
             <?php
 
@@ -104,15 +104,13 @@
                 
                 while ($row = $res->fetch_assoc()):
 
-                    $idSender = $row["IdSender"]; //trovare messaggi con la key della room
+                    $idSender = $row["IdSender"];
 
                     $timestamp = $row["Time"];
                     $unixTimestamp = strtotime($timestamp);
 
                     $dateTime = new DateTime();
                     $dateTime->setTimestamp($unixTimestamp);
-                    /*$timezone = new DateTimeZone('Europe/Rome');
-                    $dateTime->setTimezone($timezone);*/
 
                     $time = $dateTime->format('H:i');
 
@@ -134,7 +132,7 @@
             ?>
 
                     <li class="clearfix">
-                        <div class="message other-message <?php if ($idSender == $idUser1) echo "float-right"; else echo "float-left"?>">
+                        <div class="message other-message <?php if ($idSender == $idUser1) echo "float-right"; else echo "float-left"?>" id="<?=date("F j, Y", strtotime($row["Time"]))?>">
                             <span><?=$row["Message"]?></span>
                             <sub class="message-data-time" style="/*float: right;*/"><?=$time?></sub>
                         </div>
@@ -155,7 +153,7 @@
 
     </div>
 
-    <script> // to send message on Enter
+    <script> //msg con invio
         msg.addEventListener("keydown", (event) => {
             if (event.key === 'Enter' && msg.value !== '') {
                 send();

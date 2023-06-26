@@ -29,10 +29,6 @@
 
             body {
                 background-color: #efefef;
-                /*background-image: url("../assets/img/slide/slide-3.jpg");
-                overflow: hidden;
-                height: 600px;
-                width: 100vw;*/
             }
 
             .login-wrap {
@@ -242,10 +238,6 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
-
-                                    <!--<div class="w-50 text-md-right">
-                                        <a href="#">Password dimenticata</a>
-                                    </div>-->
                                     
                                 </div>
 
@@ -287,9 +279,6 @@
 
                         if ($res->num_rows == 0) {
 
-                            //controllo mail
-                            //chars pass
-
                             if (strlen($username) >= 3 and strlen($username) <= 15) {
 
                                 if (strlen($password) >= 7 and strlen($password) <= 25) {
@@ -308,12 +297,10 @@
                                                 $cookie = base64_encode(json_encode(array("username" => $_POST["username"], "password" => $password)));
 
                                                 setcookie("user", $cookie, time() + 2592000, "/friends"); //30 days
-                                                //setcookie("password", $password, time() + 2592000, "/friends"); //30 days
                                                 setcookie("login", 1, time() + 2592000, "/friends"); //30 days
 
                                             } else {
 
-                                                //session_start();
                                                 $_SESSION["login"] = 1;
                                                 $_SESSION["username"] = $username;
                                                 $_SESSION["password"] = $password;

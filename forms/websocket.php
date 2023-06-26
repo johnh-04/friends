@@ -18,7 +18,6 @@
     $server = new IoServer(
         new HttpServer(
             new WsServer(
-                // WebSocket application class
                 new App()
             )
         ),

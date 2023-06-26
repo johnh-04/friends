@@ -75,7 +75,7 @@
                         contentType: false,
                         success: (data) => {
                             console.log(data)
-                            $("#avatar").attr('src', data); //fare aggiornamento in automatico!!!!
+                            $("#avatar").attr('src', data);
                         }
 
                     });
@@ -98,19 +98,6 @@
                         <h2><?=$row["Username"]?></h2>
 
                         <img src="<?=$row["Avatar"]?>" id="avatar" class="profile-img center-block" width="200px" height="200px"> <!--.img-responsive-->
-
-                        <!--<div class="profile-label">
-                            <span class="label label-danger">Admin</span>
-                        </div>
-
-                        <div class="profile-stars">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <span>Super User</span>
-                        </div>-->
 
                         <br>
 
@@ -203,127 +190,25 @@
 
                             </div>
 
-                            <div class="col-sm-4 profile-social">
+                            <!--<div class="col-sm-4 profile-social">
                                 <ul class="fa-ul">
                                     <li><i class="fa-li fa fa-twitter-square"></i><a href="#">@scjohansson</a></li>
-                                    <li><i class="fa-li fa fa-linkedin-square"></i><a href="#">John Doe </a></li>
-                                    <li><i class="fa-li fa fa-facebook-square"></i><a href="#">John Doe </a></li>
+                                    <li><i class="fa-li fa fa-linkedin-square"></i><a href="#">John Doe</a></li>
+                                    <li><i class="fa-li fa fa-facebook-square"></i><a href="#">John Doe</a></li>
                                     <li><i class="fa-li fa fa-skype"></i><a href="#">Black_widow</a></li>
                                     <li><i class="fa-li fa fa-instagram"></i><a href="#">Avenger_Scarlett</a></li>
                                 </ul>
-                            </div>
+                            </div>-->
 
                         </div>
 
                         <div class="tabs-wrapper profile-tabs">
 
                             <ul class="nav nav-tabs">
-                                <!--<li><a href="#tab-activity" data-toggle="tab">Activity</a></li>-->
                                 <li class="active"><a href="#tab-friends" data-toggle="tab">Friends</a></li>
                             </ul>
 
                             <div class="tab-content">
-                                <!--<div class="tab-pane fade in active" id="tab-activity">
-                                    <div class="table-responsive" style="overflow-y: scroll; height: 250px;">
-                                        <table class="table">
-                                            <tbody>
-
-                                                <tr>
-                                                    <td class="text-center">
-                                                        <i class="fa fa-comment"></i>
-                                                    </td>
-                                                    <td>
-                                                        John Doe posted a comment in <a href="#">Avengers Initiative</a>
-                                                        project.
-                                                    </td>
-                                                    <td>
-                                                        2014/08/08 12:08
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td class="text-center">
-                                                        <i class="fa fa-truck"></i>
-                                                    </td>
-                                                    <td>
-                                                        John Doe changed order status from <span
-                                                            class="label label-primary">Pending</span> to <span
-                                                            class="label label-success">Completed</span>
-                                                    </td>
-                                                    <td>
-                                                        2014/08/08 12:08
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td class="text-center">
-                                                        <i class="fa fa-check"></i>
-                                                    </td>
-                                                    <td>
-                                                        John Doe posted a comment in <a href="#">Lost in Translation opening
-                                                            scene</a> discussion.
-                                                    </td>
-                                                    <td>
-                                                        2014/08/08 12:08
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td class="text-center">
-                                                        <i class="fa fa-users"></i>
-                                                    </td>
-                                                    <td>
-                                                        John Doe posted a comment in <a href="#">Avengers Initiative</a>
-                                                        project.
-                                                    </td>
-                                                    <td>
-                                                        2014/08/08 12:08
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td class="text-center">
-                                                        <i class="fa fa-comment"></i>
-                                                    </td>
-                                                    <td>
-                                                        John Doe posted a comment in <a href="#">Avengers Initiative</a>
-                                                        project.
-                                                    </td>
-                                                    <td>
-                                                        2014/08/08 12:08
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td class="text-center">
-                                                        <i class="fa fa-comment"></i>
-                                                    </td>
-                                                    <td>
-                                                        John Doe posted a comment in <a href="#">Avengers Initiative</a>
-                                                        project.
-                                                    </td>
-                                                    <td>
-                                                        2014/08/08 12:08
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td class="text-center">
-                                                        <i class="fa fa-comment"></i>
-                                                    </td>
-                                                    <td>
-                                                        John Doe posted a comment in <a href="#">Avengers Initiative</a>
-                                                        project.
-                                                    </td>
-                                                    <td>
-                                                        2014/08/08 12:08
-                                                    </td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>-->
 
                                 <?php
 
@@ -369,7 +254,6 @@
             </div>
         </div>
         
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     </body>
