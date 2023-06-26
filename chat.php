@@ -50,8 +50,7 @@
 
             function selectRoom(room) {
 
-                var title = document.querySelectorAll('.message')[document.querySelectorAll('.message').length - 1].id ?? null;
-                console.log(title)
+                var title = [...document.querySelectorAll('.message')]?.at(document.querySelectorAll('message')?.length - 1)?.id
 
                 if (socket.readyState === WebSocket.OPEN) socket.close();
 
@@ -251,7 +250,7 @@
                                         <img src="<?=$row["Avatar"]?>" alt="avatar" width="45px" height="45px">
                                         <div class="about">
                                             <div class="name"><?=$row["Username"]?></div>
-                                            <div class="status"><i class="fa fa-circle offline"></i> left 7 mins ago </div>
+                                            <small style="color: #999999"><?=$row["Name"]?> <?=$row["Surname"]?></small>
                                         </div>
                                     </li>
 

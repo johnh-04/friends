@@ -134,7 +134,7 @@
                     <li class="clearfix">
                         <div class="message other-message <?php if ($idSender == $idUser1) echo "float-right"; else echo "float-left"?>" id="<?=date("F j, Y", strtotime($row["Time"]))?>">
                             <span><?=$row["Message"]?></span>
-                            <sub class="message-data-time" style="/*float: right;*/"><?=$time?></sub>
+                            <sub class="message-data-time"><?=$time?></sub>
                         </div>
                     </li>
 
