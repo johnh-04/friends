@@ -97,7 +97,7 @@
 
                         <h2><?=$row["Username"]?></h2>
 
-                        <img src="<?=$row["Avatar"]?>" id="avatar" class="profile-img center-block" width="200px" height="200px">
+                        <img src="<?=$row["Avatar"]?>" id="avatar" class="profile-img center-block" width="200px" height="200px"> <!--.img-responsive-->
 
                         <!--<div class="profile-label">
                             <span class="label label-danger">Admin</span>

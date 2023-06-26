@@ -49,9 +49,10 @@
 
             var socket = new WebSocket('ws://<?=$_SERVER["SERVER_NAME"]?>:7777/chat');
             var idUser = <?=$idUser?>;
-            var title = null;
 
             function selectRoom(room) {
+
+                var title = null;
 
                 if (socket.readyState === WebSocket.OPEN) socket.close();
 
@@ -110,7 +111,7 @@
                                     <span>${title}</span>
                                 </div>
                             </li>
-                            <br>;
+                            <br>
 
                         `);
 
@@ -159,8 +160,8 @@
 
                     });
 
-                    document.getElementsByClassName("people-list").style.display = "none";
-                    document.getElementsByClassName("chat-history").style.display = "flex";
+                    //document.getElementsByClassName("people-list").style.display = "none";
+                    //document.getElementsByClassName("chat-history").style.display = "flex";
 
                 })
             });
