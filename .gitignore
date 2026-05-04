@@ -1,6 +1,8 @@
 # vendor/
 # composer.lock
 
+todo.txt
+
 .env
 .env.*
 
