@@ -1,1 +1,24 @@
-.git
+# vendor/
+# composer.lock
+
+.env
+.env.*
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+*.log
+*.tmp
+*.bak
+*.cache
+
+/coverage/
+.phpunit.result.cache
+
+Thumbs.db
